@@ -31,7 +31,8 @@ public class Processo implements Comparable<Processo> {
 		this.esperando = esperando;
 		this.executando = executando;
 		this.terminado = terminado;
-		this.requisicao = ((int) Math.pow(2, (5 + new Random().nextInt(6)))); // GERA UM NUMERO ALEATORIO DE 2^5 À 2^10 32 BYTES ATÉ 1024 BYTES
+		// --------------------- GERA UM NUMERO ALEATORIO DE 2^5 À 2^10 32 BYTES ATÉ 1024 BYTES
+		this.requisicao = ((int) Math.pow(2, ((int) (Math.log(MainRoundRobin.VALOR_MINIMO)/Math.log(2)) + new Random().nextInt((int) (((Math.log(MainRoundRobin.VALOR_MAXIMO)/Math.log(2))+1)-(Math.log(MainRoundRobin.VALOR_MINIMO)/Math.log(2))))))); 
 	}
 	
 	

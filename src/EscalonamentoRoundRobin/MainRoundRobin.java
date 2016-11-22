@@ -23,6 +23,8 @@ public class MainRoundRobin extends Thread {
 	public static int processos = 0;
 	public static int quantum = 0;
 	public static int numListasTop = 0; // QUANTIDADE DE LISTAS TOP
+	public static final int VALOR_MINIMO = 32; // VALOR MINIMO DE UM BLOCO EM BYTES
+	public static final int VALOR_MAXIMO = 1024; // VALOR MAXIMO DE UM BLOCO EM BYTES
 	public static int prioridadeQuatum;
 	public static int quantidadeDeCore;
 	public static boolean programaON;
@@ -547,7 +549,14 @@ public class MainRoundRobin extends Thread {
 		return maior; // RETORNA A VARIAVEL MAIOR
 	}
 	
-	//CRIAR UM METODO QUE D� HIT ( 2 SOLUCOES, DEIXAR A LISTA DE ESTATISTICA PUBLICA (PIOR IMPLEMENTA��O), RETORNAR A ESTATISTICA E DAR UM HIT NELA ONDE O METODO FOI CHAMADO (MELHOR IMPLEMENTA��O)
-	
+	//CRIAR UM METODO QUE D� HIT 
+	public static void doHit(ArrayList<Estatistica> estatisticas, int bytes){ // RECEBE COMO PARAMETRO A LISTAS DE ESTATISTICAS E UMA QUANTIDADE DE BYTES
+		for(Estatistica est: estatisticas){ // PERCORRE TODAS AS ESTATISTICAS
+			if(est.getBytes() == bytes){ // SE A ESTATISTICA TIVER A MESMA QUANTIDADE DE BYTES DO BYTES
+				est.hit(); // DA HIT NESSA ESTATISTICA
+				break; // SAI DO FOR (ECONOMIZAR MEMORIA)
+			}
+		}
+	}
 
 }
