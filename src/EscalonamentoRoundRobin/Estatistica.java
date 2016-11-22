@@ -25,6 +25,14 @@ public class Estatistica {
 		this.hit++;
 	}
 	
+	public void zerarHit(){ // ZERA OS HITS DA ESTATISSTICA
+		this.hit = 0;
+	}
+	
+	public String toString(){ // CRIA O TOSTRING, VERSAO STRING DA ESTATISTICA
+		return "(Bytes = "+this.bytes+" | hits = "+this.hit+")";
+	}
+	
 	
 	
 }

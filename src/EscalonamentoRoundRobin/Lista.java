@@ -3,7 +3,7 @@ package EscalonamentoRoundRobin;
 import java.util.ArrayList;
 
 
-public class Lista { // LISTA TOP
+public class Lista { // LISTA TOP ( SE A QUANTIDADE DE BYTES FOR 999 INDICA FILA RESTO )
 
 	private int bytes; // BYTES CORRESPONDENTE A LISTA TOP
 	private ArrayList<Bloco> blocos= new ArrayList<Bloco>(); //BLOCOS ALOCADOS COM ESSA QUANTIDADE DE BYTES
@@ -38,7 +38,19 @@ public class Lista { // LISTA TOP
 		for(Bloco bloco : blocos){ // PERCORRE OS BLOCOS
 			if(bloco.isLivre()) return true; // CASO O BLOCO SEJA LIVRE RETORNA TRUE
 		}
-		return false; // SE CHEGOU AQUI É PQ NENHUM BLOCO É LIVRE, LOGO É FALSO
+		return false; // SE CHEGOU AQUI ï¿½ PQ NENHUM BLOCO ï¿½ LIVRE, LOGO ï¿½ FALSO
+	}
+	
+	public String toString(){ // TO STRING DA LISTA 
+		String retorno = "(";
+		if(this.bytes != 999){
+			retorno += "Bytes = "+this.bytes;
+		}else{
+			retorno += "Lista Resto";
+		}
+		
+		return retorno += " "+blocos+")"; // RETORNA A LISTA EM UMA STRING
+		
 	}
 
 	

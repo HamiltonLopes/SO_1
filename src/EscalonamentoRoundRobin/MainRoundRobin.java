@@ -355,7 +355,7 @@ public class MainRoundRobin extends Thread {
 								}
 							} // FIM WHILE DE INSERIR O PROXIMO DO ANTERIOR
 
-							// SE CHEGOU AQUI É PQ TINHA PROCESSO
+							// SE CHEGOU AQUI ï¿½ PQ TINHA PROCESSO
 							listaCores.get(i).setProntoParaReceberProcesso(false);
 						} else {
 							// NAO TEM MAIS PROCESSO
@@ -437,11 +437,11 @@ public class MainRoundRobin extends Thread {
 				if(Memoria.existeListaTop()){ // VERIFICA SE JA EXISTE A LISTA TOP, SE EXISTIR, ENTRA
 					// ----------------------------- EXISTE LISTA TOP -----------------------------------
 					for(int i = 0; i < Memoria.getListadeListas().size();i++ ){ // VAI PERCORRER AS LISTAS TOP
-						// VERIFICA SE O TAMANHO DO PROCESSO É UMA DAS LISTA TOP, SE FOR ENTRA, SE NÃO FOR ELE VAI ENTRAR MESMO ASSIM, SÓ QUE NA LISTA RESTO
+						// VERIFICA SE O TAMANHO DO PROCESSO ï¿½ UMA DAS LISTA TOP, SE FOR ENTRA, SE Nï¿½O FOR ELE VAI ENTRAR MESMO ASSIM, Sï¿½ QUE NA LISTA RESTO
 						if(Memoria.getListadeListas().get(i).getBytes() == processo.getRequisicao() || i == Memoria.getListadeListas().size()-1 ){  
 							if(Memoria.getListadeListas().get(i).temBlocoLivre()){ // VERIFICA SE A LISTA TEM BLOCO LIVRE
 								for(Bloco b: Memoria.getListadeListas().get(i).getBlocos()){ // PERCORRE OS BLOCOS DA LISTA
-									if(b.isLivre() && b.getTamanho() == processo.getRequisicao()){ // VERIFICA SE O BLOCO ESTÁ LIVRE, E SE ELE É DO MESMO TAMANHO DO PROCESSO (CASO ESTEJA NA LISTA RESTO)
+									if(b.isLivre() && b.getTamanho() == processo.getRequisicao()){ // VERIFICA SE O BLOCO ESTï¿½ LIVRE, E SE ELE ï¿½ DO MESMO TAMANHO DO PROCESSO (CASO ESTEJA NA LISTA RESTO)
 										b.alocarProcesso(processo); // ALOCA O PROCESSO NO BLOCO
 										Memoria.decrementarMemoria(processo.getRequisicao()); // REDUZ A MEMORIA DISPONIVEL
 										return true; //RETORNA TRUE PQ ALOCOU O PROCESSO COM SUCESSO
@@ -455,7 +455,7 @@ public class MainRoundRobin extends Thread {
 				}else{
 					//----------------------------- NAO EXISTE LISTA TOP ---------------------
 					for(Bloco bloco: Memoria.getListaInicialDeBlocos()){ // PERCORRE OS BLOCOS
-						if(bloco.isLivre() && bloco.getTamanho()== processo.getRequisicao()){ // VERIFICA SE O É LIVRE E É DO MESMO TAMANHO DA REQUISICAO DO PROCESSO
+						if(bloco.isLivre() && bloco.getTamanho()== processo.getRequisicao()){ // VERIFICA SE O ï¿½ LIVRE E ï¿½ DO MESMO TAMANHO DA REQUISICAO DO PROCESSO
 							bloco.alocarProcesso(processo); // ALOCA O PROCESSO NO BLOCO
 							Memoria.decrementarMemoria(processo.getRequisicao()); // DECREMENTA A MEMORIA
 							return true; // RETORNA TRUE PQ ALOCOU O PROCESSO COM SUCESSO
@@ -463,13 +463,13 @@ public class MainRoundRobin extends Thread {
 					}
 				}
 			}
-			// -------------------------------- SE CHEGOU ATÉ AQUI É PQ NÃO TINHA BLOCO LIVRE -----------------------------------
+			// -------------------------------- SE CHEGOU ATï¿½ AQUI ï¿½ PQ Nï¿½O TINHA BLOCO LIVRE -----------------------------------
 			Bloco novo = Memoria.criarBloco(processo.getRequisicao()); // CRIA O BLOCO ( JA ADICIONA NA LISTA TOP CASO ELA EXISTA)
 			novo.alocarProcesso(processo); // ALOCA O PROCESSO NO BLOCO
 			Memoria.decrementarMemoria(processo.getRequisicao()); // DECREMENTA MEMORIA
 			return true; // RETORNA TRUE PQ FOI ALOCADO UM PROCESSO PARA O BLOCO COM SUCESSO
 		}
-		return false; // SE CHEGOU AQUI É PQ NAO TINHA MEMORIA SUFICIENTE, RETORNA FALSE 
+		return false; // SE CHEGOU AQUI ï¿½ PQ NAO TINHA MEMORIA SUFICIENTE, RETORNA FALSE 
 	}
 	
 	//METODO PARA DESALOCAR PROCESSO DO BLOCO
@@ -479,8 +479,8 @@ public class MainRoundRobin extends Thread {
 				if(Memoria.getListadeListas().get(i).getBytes() == processo.getRequisicao() || i == Memoria.getListadeListas().size() - 1){
 					// --------------- VERIFICOU SE EXISTE A LISTA TOP CORRESPONDENTE AOS BYTES DO PROCESSO OU ENTROU NA LISTA RESTO -----------
 					for(Bloco bloco: Memoria.getListadeListas().get(i).getBlocos()){ // PERCORRE OS BLOCOS DA LISTA
-						if((!bloco.isLivre()) && bloco.getTamanho() == processo.getRequisicao() ){ // VERIFICA SE O BLOCO NAO ESTA LIVRE E O TAMANHO É IGUAL AO DO PROCESSO (CASO ESTEJA NA LISTA RESTO)
-							if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO QUE TA NO BLOCO É O PROCESSO QUE QUEREMOS DESALOCAR
+						if((!bloco.isLivre()) && bloco.getTamanho() == processo.getRequisicao() ){ // VERIFICA SE O BLOCO NAO ESTA LIVRE E O TAMANHO ï¿½ IGUAL AO DO PROCESSO (CASO ESTEJA NA LISTA RESTO)
+							if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO QUE TA NO BLOCO ï¿½ O PROCESSO QUE QUEREMOS DESALOCAR
 								bloco.desalocarProcesso(); // DESALOCA PROCESSO
 								Memoria.restaurarMemoria(processo.getRequisicao()); // RESTAURA A MEMORIA
 								return true; // RETORNA TRUE PQ DESALOCOU COM SUCESSO
@@ -493,7 +493,7 @@ public class MainRoundRobin extends Thread {
 			//-------------------------- NAO EXISTE LISTAS TOPS ---------------------------------
 			for(Bloco bloco: Memoria.getListaInicialDeBlocos()){ // PERCORRE A LISTA INICIAL DE BLOCOS
 				if((!bloco.isLivre()) && bloco.getTamanho() == processo.getRequisicao()){ //VERIFICA SE O BLOCO NAO TA VAZIO E SE O TAMANHO CORRESPONDE COM A QUANTIDADE DE BYTES DO PROCESSO
-					if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO ALOCADO NO BLOCO É O PROCESSO QUE QUEREMOS DESALOCAR
+					if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO ALOCADO NO BLOCO ï¿½ O PROCESSO QUE QUEREMOS DESALOCAR
 						bloco.desalocarProcesso(); // DESALOCA PROCESSO
 						Memoria.restaurarMemoria(processo.getRequisicao()); //RESTAURA MEMORIA
 						return true; // RETORNA TRUE POIS DESALOCOU COM SUCESSO
@@ -502,18 +502,52 @@ public class MainRoundRobin extends Thread {
 			}
 		}
 		
-		return false; // SE CHEGOU AQUI É PQ O PROCESSO QUE TENTOU DESALOCAR, NÃO TEM UM BLOCO ALOCADO, POR ISSO RETORNA FALSE
+		return false; // SE CHEGOU AQUI ï¿½ PQ O PROCESSO QUE TENTOU DESALOCAR, Nï¿½O TEM UM BLOCO ALOCADO, POR ISSO RETORNA FALSE
 	}
 	
 	//MONTAR LISTA TOPS
-	public boolean montarListaTop(ArrayList<Estatistica> estatisticas){
-		//TESTAR CASO EU REMOVA ALGO DO ARRAY LOCAL SE MUDA O QUE FOI PASSADO POR PARAMETRO (TEORICAMENTE N DEVERIA)
+	public void montarListaTop(ArrayList<Estatistica> estatisticas){ // RECEBE UMA LISTA DE ESTATISTICAS COMO PARAMETRO
+		ArrayList<Lista> listaDeLista = new ArrayList<Lista>(); // LISTA AUXILIAR PARA ARMAZENAR AS LISTAS TOPS
+		for(int i = 0; i < numListasTop; i++){ // PERCORRE UM FOR O NUMERO DE LISTAS TOPS 
+			Estatistica maior = maiorEstatistica(estatisticas); // PEGA O TOP DA LISTA 
+			listaDeLista.add(new Lista(maior)); // CRIA UMA LISTA TOP
+			maior.zerarHit(); // ZERA O HIT DESSE TOP, PARA DA PROXIMA VEZ PEGAR O TOP 2 E ASSIM SUCESSIVAMENTE
+		}
+		listaDeLista.add(new Lista(999)); // CRIA A LISTA DE RESTO | CODIGO 999 = RESTO
 		
-		return false;
+		for(int i = 0; i < Memoria.getListaInicialDeBlocos().size(); i++){ // PERCORRE A LISTA INICIAL DE BLOCOS
+			for(int k = 0; k < listaDeLista.size(); k++){ // PERCORRE AS LISTAS TOP
+				if(Memoria.getListaInicialDeBlocos().get(i).getTamanho() == listaDeLista.get(k).getBytes() || k == listaDeLista.size()-1){ 
+					// ---------- VERIFICA SE EXISTE UM TOP CORRESPONDENTE AO TAMANHO DO BLOCO DA LISTA INICIAL PARA ENTRAR OU SE NAO EXISTIR, ENTRA NA LISTA RESTO
+					listaDeLista.get(k).addBloco(Memoria.getListaInicialDeBlocos().get(i)); // ADICIONA O BLOCO NA LISTA
+					k = listaDeLista.size(); // SE ADICIONA O BLOCO ELE PULA O RESTO DO FOR
+				}
+			}
+		}
+		
+		
+		Memoria.setListaDeListas(listaDeLista); // ELE ATUALIZA QUEEM SAO AS LISTAS TOP
+		for(int i = 0; i < estatisticas.size(); i++){ // PERCORRE TODAS AS ESTATISTICAS 
+			estatisticas.get(i).zerarHit(); // ZERA O HIT DE TODAS ELAS
+		}
 	}
 	
-	//CRIAR UM METODO QUE DÊ HIT ( 2 SOLUCOES, DEIXAR A LISTA DE ESTATISTICA PUBLICA (PIOR IMPLEMENTAÇÃO), RETORNAR A ESTATISTICA E DAR UM HIT NELA ONDE O METODO FOI CHAMADO (MELHOR IMPLEMENTAÇÃO)
+	//RETORNA A MAIOR ESTATISTICA DE UMA LISTA
+	public Estatistica maiorEstatistica(ArrayList<Estatistica> lista){ // RECEBE UMA LISTA DE ESTATISTICAS COMO PARAMETRO
+		Estatistica maior = null; // VARIAVEL AUXILIAR QUE DETERMINA A MAIOR ESTATISTICA
+		for (int i = 0; i < lista.size(); i++) { // PERCORRE A LISTA DE ESTATISTICA
+			if(maior != null){ // SE A VARIAVEL AUXILIAR JA ESTIVER SIDO ALIMENTADA, ENTRA
+				if(lista.get(i).getHit() > maior.getHit()){ // VERIFICA SE A ESTATISTICA ATUAL TEM MAIS HITS DO QUE O MAIOR
+					maior = lista.get(i); // SE SIM, ENTAO O MAOIR TEM QUE SER ATUALIZADO
+				}
+			}else{ // SE NAO, TEM Q ALIMENTAR A VARIAVEL
+				maior = lista.get(i); // ALIMENTA COM O PRIMEIRO QUE VIER
+			}
+		}
+		return maior; // RETORNA A VARIAVEL MAIOR
+	}
 	
-	//CRIAR UM METODO QUE RETORNA A MAIOR ESTATISTICA DE UMA LISTA DE ESTATISTICAS
+	//CRIAR UM METODO QUE Dï¿½ HIT ( 2 SOLUCOES, DEIXAR A LISTA DE ESTATISTICA PUBLICA (PIOR IMPLEMENTAï¿½ï¿½O), RETORNAR A ESTATISTICA E DAR UM HIT NELA ONDE O METODO FOI CHAMADO (MELHOR IMPLEMENTAï¿½ï¿½O)
+	
 
 }
