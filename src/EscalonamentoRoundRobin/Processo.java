@@ -1,6 +1,7 @@
 package EscalonamentoRoundRobin;
 
 import java.awt.Color;
+import java.util.Random;
 
 public class Processo implements Comparable<Processo> {
 	private static int idProcesso;
@@ -11,13 +12,14 @@ public class Processo implements Comparable<Processo> {
 	String estado;
 	int quantum;
 	int deadline;
+	int requisicao; // QUANTIDADE DE BYTES NECESSARIO PARA ALOCAR O PROCESSO NA MEMORIA
 	
 	Color esperando;
 	Color pronto;
 	Color terminado;
 	Color executando;
 	
-	public Processo(){}
+	//public Processo(){} //RETIRANDO CONSTRUTOR DESNECESSARIO
 	public Processo(int tempoDeExecucao, int deadline, String estado){}
 	public Processo(int tempoDeExecucao,int prioridade, String estado, int quantum, Color pronto, Color esperando, Color terminado, Color executando){
 		this.id = idProcesso++;
@@ -29,6 +31,7 @@ public class Processo implements Comparable<Processo> {
 		this.esperando = esperando;
 		this.executando = executando;
 		this.terminado = terminado;
+		this.requisicao = (int) Math.pow(2, (5 + new Random().nextInt(6))); // GERA UM NUMERO ALEATORIO DE 2^5 À 2^10 32 BYTES ATÉ 1024 BYTES
 	}
 	
 	

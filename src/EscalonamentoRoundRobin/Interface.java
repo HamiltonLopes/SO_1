@@ -21,7 +21,7 @@ public class Interface extends JFrame {
 
 	static Fila f = new Fila();
 
-	Processo processo = new Processo();
+	//Processo processo = new Processo(); // RETIRANDO PROCESSO DESNECESSARIO
 
 	public JTextField caixaProcessos;
 	public JTextField caixaQuantun;
