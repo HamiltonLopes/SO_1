@@ -26,13 +26,19 @@ public class Lista { // LISTA TOP
 		if(bloco.getTamanho() == this.bytes){ //VERIFICA SE A QUANTIDADE DE BYTES DO BLOCO √â CORRESPONDENTE COM A LISTA TOP
 			blocos.add(bloco); // SE SIM ADCICIONA
 			return true;	// E RETORNA TRUE PQ DEU CERTO
-		}else{
-			return false; // SE N√ÉO, N√ÉO FAZ NADA E RETORNA FALSE
 		}
+		return false; // SE N√ÉO, N√ÉO FAZ NADA E RETORNA FALSE
 	}
 	
 	public ArrayList<Bloco> getBlocos(){ // RETORNA A LISTA DE BLOCOS DA LISTA TOP
 		return blocos;
+	}
+	
+	public boolean temBlocoLivre(){ // RETORNA TRUE CASO A LISTA TOP TENHA PELO MENOS UM BLOCO LIVRE
+		for(Bloco bloco : blocos){ // PERCORRE OS BLOCOS
+			if(bloco.isLivre()) return true; // CASO O BLOCO SEJA LIVRE RETORNA TRUE
+		}
+		return false; // SE CHEGOU AQUI … PQ NENHUM BLOCO … LIVRE, LOGO … FALSO
 	}
 
 	

@@ -12,7 +12,7 @@ public class Processo implements Comparable<Processo> {
 	String estado;
 	int quantum;
 	int deadline;
-	int requisicao; // QUANTIDADE DE BYTES NECESSARIO PARA ALOCAR O PROCESSO NA MEMORIA
+	private int requisicao; // QUANTIDADE DE BYTES NECESSARIO PARA ALOCAR O PROCESSO NA MEMORIA
 	
 	Color esperando;
 	Color pronto;
@@ -31,7 +31,7 @@ public class Processo implements Comparable<Processo> {
 		this.esperando = esperando;
 		this.executando = executando;
 		this.terminado = terminado;
-		this.requisicao = (int) Math.pow(2, (5 + new Random().nextInt(6))); // GERA UM NUMERO ALEATORIO DE 2^5 À 2^10 32 BYTES ATÉ 1024 BYTES
+		this.requisicao = ((int) Math.pow(2, (5 + new Random().nextInt(6)))); // GERA UM NUMERO ALEATORIO DE 2^5 À 2^10 32 BYTES ATÉ 1024 BYTES
 	}
 	
 	
@@ -84,6 +84,9 @@ public class Processo implements Comparable<Processo> {
             return 1;
         }
         return 0;
+	}
+	public int getRequisicao() { // RETORNA A QUANTIDADE DE BYTES DO PROCESSO
+		return requisicao;
 	}
 
 }

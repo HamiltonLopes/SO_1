@@ -13,18 +13,20 @@ public class Bloco {
 		if(this.processoDoBloco == null){ // SE O PROCESSO FOR NULO, ENTRA 
 			processoDoBloco = processoASerAlocado; // ALOCA O PROCESSO NO BLOCO
 			return true; // RETORNA TRUE PQ DEU CERTO
-		}else{
-			return false; // SE JA TIVER PROCESSO NO BLOCO ELE RETORNA FALSO, PQ ANTES TEM Q DESALOCAR
 		}
+		return false; // SE JA TIVER PROCESSO NO BLOCO ELE RETORNA FALSO, PQ ANTES TEM Q DESALOCAR
+	}
+	
+	public Processo getProcesso(){ // RETORNA O PROCESSO ALOCADO NO BLOCO
+		return processoDoBloco; // RETORNA NULL CASO N�O TENHA UM PROCESSO ALOCADO NO BLOCO
 	}
 	
 	public boolean desalocarProcesso(){ // DESALOCA O PROCESSO DO BLOCO (DEIXA ELE LIVRE)
 		if(this.processoDoBloco != null){ // SE EXISTIR UM PROCESSO NO BLOCO, ENTRA
 			processoDoBloco = null; // COLOCA O PROCESSO PARA NULO (LIBERA)
 			return true; // RETORNA TRUE PQ DEU TD CERTO
-		}else{
-			return false; // SE NÃO TIVER PROCESSO NO BLOCO RETORNA FALSO, PQ N TEM PROCESSO PARA DESALOCAR
 		}
+		return false; // SE NÃO TIVER PROCESSO NO BLOCO RETORNA FALSO, PQ N TEM PROCESSO PARA DESALOCAR
 	}
 
 	public int getTamanho() { // RETORNA O TAMANHO DO BLOCO

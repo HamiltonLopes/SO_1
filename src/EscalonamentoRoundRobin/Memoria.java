@@ -10,7 +10,7 @@ public class Memoria {
 	private static ArrayList<Bloco> listaInicialDeBlocos = new ArrayList<Bloco>(); // LISTA INICIAL DOS BLOCOS QUE VÃO SENDO CRIADOS ANTES DAS LISTAS TOP
 	private static ArrayList<Lista> listaDeListas = new ArrayList<Lista>(); // LISTA DE TOPS + LISTA RESTO
 	
-	public static boolean criarBloco(int bytes){ // CRIA UM BLOCO NA MEMORIA
+	public static Bloco criarBloco(int bytes){ // CRIA UM BLOCO NA MEMORIA
 		if(Memoria.memoriaDisponivel >= bytes){ // VERIFICA SE TEM MEMORIA DISPONIVEL
 			Bloco novoBloco = new Bloco(bytes);  // CASO TENHA CRIA UM NOVO BLOCO A SER ADICIONADO
 			Memoria.listaInicialDeBlocos.add(novoBloco);  // ADICIONA ESSE BLOCO NA LISTA INICIAL
@@ -22,10 +22,9 @@ public class Memoria {
 					}
 				}
 			}
-			return true; // RETORNO TRUE PQ DEU CERTO 
-		}else{
-			return false; // SE NAO TIVER MEMORIA DISPONIVEL RETORNO FALSE
+			return novoBloco; // RETORNA O BLOCO NOVO QUE FOI ADICIONADO 
 		}
+		return null; // SE NAO TIVER MEMORIA DISPONIVEL RETORNA NULL
 	}
 	
 	public static int getMemoriaDisponivel() { 	// RETORNA A MEMORIA DISPONIVEL
@@ -35,18 +34,16 @@ public class Memoria {
 		if(Memoria.memoriaDisponivel >= bytesUsados){	// SE A MEMORIA DISPONIVEL FOR SUFICIENTE PARA ALOCAR O PROCESSO, ENTRA
 			Memoria.memoriaDisponivel -= bytesUsados; // RETIRA DA MEMORIA O TAMANHO DO PROCESSO
 			return true; // RETORNA VERDADEIRO SE FOI POSSIVEL RETIRAR A MEMORIA
-		}else{
-			return false; // RETORNA FALSO CASO A MEMORIA SEJA MENOR DO QUE A NECESSARIA
 		}
+		return false; // RETORNA FALSO CASO A MEMORIA SEJA MENOR DO QUE A NECESSARIA
 	}
 	
 	public static boolean restaurarMemoria(int bytesLivres){ // RESTAURA A MEMORIA OU SEJA, DESALOCA O PROCESSO
 		if(Memoria.memoriaDisponivel != Memoria.memoriaTotal){ // SE A MEMORIA DISPONIVEL FOR DIFERENTE DA TOTAL, ENTRA
 			Memoria.memoriaDisponivel += bytesLivres; // ADICIONA OS BYTES DO PROCESSO QUANDO ELE VAI DESALOCAR O BLOCO
 			return true; // RETORNA VERDADEIRO SE DER CERTO
-		}else{
-			return false; // SE CASO A MEMORIA JA ESTEJA DO TAMANHO MAXIMO, ENTAO NAO VAI ADICIONAR POIS OUVE ALGO ERRADO
 		}
+		return false; // SE CASO A MEMORIA JA ESTEJA DO TAMANHO MAXIMO, ENTAO NAO VAI ADICIONAR POIS OUVE ALGO ERRADO
 	}
 	public static int getMemoriaTotal() { // RETORNA A MEMORIA TOTAL 
 		return Memoria.memoriaTotal;
@@ -60,15 +57,15 @@ public class Memoria {
 		return !listaInicialDeBlocos.isEmpty();
 	}
 	
-	public ArrayList<Bloco> getListaInicialDeBlocos(){ // RETORNA A LISTA INICIAL DOS BLOCOS
+	public static ArrayList<Bloco> getListaInicialDeBlocos(){ // RETORNA A LISTA INICIAL DOS BLOCOS
 		return listaInicialDeBlocos;
 	}
 	
-	public ArrayList<Lista> getListadeListas(){ // RETORNA A LISTA DE TOPS
+	public static ArrayList<Lista> getListadeListas(){ // RETORNA A LISTA DE TOPS
 		return listaDeListas;
 	}
 	
-	public void setListaDeListas(ArrayList<Lista> listaDeListas){ // ALTERA A LISTA DE TOPS
+	public static void setListaDeListas(ArrayList<Lista> listaDeListas){ // ALTERA A LISTA DE TOPS
 		Memoria.listaDeListas = listaDeListas;
 	}
 }

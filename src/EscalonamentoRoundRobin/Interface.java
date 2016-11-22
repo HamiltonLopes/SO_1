@@ -94,6 +94,7 @@ public class Interface extends JFrame {
 				MainRoundRobin.processos = Integer.parseInt(caixaProcessos.getText());
 				MainRoundRobin.cores = Integer.parseInt(caixaCores.getText());
 				MainRoundRobin.quantum = Integer.parseInt(caixaQuantun.getText());
+				//ALIMENTAR A VARIAVEL COM O NUMERO DE LISTAS TOPS
 				MainRoundRobin mrr = new MainRoundRobin();
 				mrr.start();
 				fechar();
