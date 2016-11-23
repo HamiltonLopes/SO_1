@@ -22,9 +22,10 @@ public class MainRoundRobin extends Thread {
 	public static int cores = 0;
 	public static int processos = 0;
 	public static int quantum = 0;
-	public static int numListasTop = 0; // QUANTIDADE DE LISTAS TOP
+	public static int numListasTop = 3; // QUANTIDADE DE LISTAS TOP
 	public static final int VALOR_MINIMO = 32; // VALOR MINIMO DE UM BLOCO EM BYTES
 	public static final int VALOR_MAXIMO = 1024; // VALOR MAXIMO DE UM BLOCO EM BYTES
+	public static final int NUM_PROCESSOS_PARA_CRIAR_LISTAS_TOP = 10; //NUMERO DE PROCESSOS NECESSARIOS PARA CRIAR AS LISTAS TOP
 	public static int prioridadeQuatum;
 	public static int quantidadeDeCore;
 	public static boolean programaON;
@@ -215,8 +216,13 @@ public class MainRoundRobin extends Thread {
 				}
 			}
 		});
-		//FAZER UM METODO QUE CRIE AS ESTATISTICAS E ADICIONE EM UMA LISTA
-
+		//CRIANDO A LISTA DE ESTATISTICAS
+		ArrayList<Estatistica> estatisticas = new ArrayList<Estatistica>(); // LISTA COM AS ESTATISTICAS
+		for (int i = MainRoundRobin.VALOR_MINIMO; i <= MainRoundRobin.VALOR_MAXIMO; i*=2 ){ // PERCORRE TODAS AS ESTATISTICAS POSSIVEIS
+			estatisticas.add(new Estatistica(i)); //  CRIA AS ESTATISTICAS
+		}
+		int NUM_PROCESSOS_CRIADOS_EST = 0; //VARIAVEL QUE IRÁ INDICAR QUANDO AS LISTAS TOPS DEVERÃO SER MONTADAS
+		
 		while (programaON) { // ENQUANTO.TIVER.PROCESSO.OU.ALGO.EXECUTANDO
 			if (temProcesso() || aindaTemCore(listaCores)) {//CORE.RODANDO
 
@@ -238,7 +244,10 @@ public class MainRoundRobin extends Thread {
 								voltarParaFila(listaCores.get(i).getProcessoEmAndamento()); // SE.NAO, VOLTA.PRAS.FILAS
 								
 							}
+							//DESALOCAR PROCESSO DO BLOCO CORRESPONDENTE
+							desalocarBlocoDoProcesso(listaCores.get(i).getProcessoEmAndamento());
 						}
+						
 
 						if (temProcesso()) {
 							// VOU INSERIR DA LISTA POSTERIOR A LISTA DO ULTIMO
@@ -247,7 +256,12 @@ public class MainRoundRobin extends Thread {
 							while (!inseriCorretamente) {
 								if (auxPosteriorDoUltimo == 0) {
 									if (q.getQnt() > 0) {
-										listaCores.get(i).setProcessoEmAndamento(q.removerDaFila()); 
+										Processo proximo_processo_a_entrar = q.removerDaFila(); // REMOVE O PRIMEIRO DA FILA E ADICIONA EM UMA VARIAVEL AUXILIAR
+										if(alocarBlocoParaProcesso(proximo_processo_a_entrar)){ // TENTA ALOCAR UM BLOCO NA MEMORIA PARA O PROCESSO
+											doHit(estatisticas, proximo_processo_a_entrar.getRequisicao()); // SE ALOCOU O BLOCO DA UM HIT NA ESTATISTICA DELE
+											listaCores.get(i).setProcessoEmAndamento(proximo_processo_a_entrar); // SETA O PROCESSO NO BLOCO
+											inseriCorretamente = true; // ALIMENTA A AUXILIAR PARA SABER QUE INSERIU CORRETAMENTE
+										}
 										if (q != null) {
 											if (q.getQnt() > 0) {
 												if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
@@ -265,14 +279,17 @@ public class MainRoundRobin extends Thread {
 											}
 										}
 
-										inseriCorretamente = true;
 									}
 									auxPosteriorDoUltimo = 1;
 								} else {
 									if (auxPosteriorDoUltimo == 1) {
 										if (q2.getQnt() > 0) {
-											listaCores.get(i).setProcessoEmAndamento(q2.removerDaFila());
-
+											Processo proximo_processo_a_entrar = q2.removerDaFila();// REMOVE O PRIMEIRO DA FILA E ADICIONA EM UMA VARIAVEL AUXILIAR
+											if(alocarBlocoParaProcesso(proximo_processo_a_entrar)){ // TENTA ALOCAR UM BLOCO NA MEMORIA PARA O PROCESSO
+												doHit(estatisticas, proximo_processo_a_entrar.getRequisicao()); // SE ALOCOU O BLOCO DA UM HIT NA ESTATISTICA DELE
+												listaCores.get(i).setProcessoEmAndamento(proximo_processo_a_entrar); // SETA O PROCESSO NO BLOCO
+												inseriCorretamente = true; // ALIMENTA A AUXILIAR PARA SABER QUE INSERIU CORRETAMENTE
+											}		
 											if (q2 != null) {
 												if (q2.getQnt() > 0) {
 													if (q2.getHead().getProcesso().getEstado()
@@ -293,13 +310,17 @@ public class MainRoundRobin extends Thread {
 												}
 											}
 
-											inseriCorretamente = true;
 										}
 										auxPosteriorDoUltimo = 2;
 									} else {
 										if (auxPosteriorDoUltimo == 2) {
 											if (q3.getQnt() > 0) {
-												listaCores.get(i).setProcessoEmAndamento(q3.removerDaFila());
+												Processo proximo_processo_a_entrar = q3.removerDaFila();// REMOVE O PRIMEIRO DA FILA E ADICIONA EM UMA VARIAVEL AUXILIAR
+												if(alocarBlocoParaProcesso(proximo_processo_a_entrar)){ // TENTA ALOCAR UM BLOCO NA MEMORIA PARA O PROCESSO
+													doHit(estatisticas, proximo_processo_a_entrar.getRequisicao()); // SE ALOCOU O BLOCO DA UM HIT NA ESTATISTICA DELE
+													listaCores.get(i).setProcessoEmAndamento(proximo_processo_a_entrar); // SETA O PROCESSO NO BLOCO
+													inseriCorretamente = true; // ALIMENTA A AUXILIAR PARA SABER QUE INSERIU CORRETAMENTE
+												}
 												if (q3 != null) {
 													if (q3.getQnt() > 0) {
 														if (q3.getHead().getProcesso().getEstado()
@@ -320,13 +341,17 @@ public class MainRoundRobin extends Thread {
 													}
 												}
 
-												inseriCorretamente = true;
 											}
 											auxPosteriorDoUltimo = 3;
 										} else {
 											if (auxPosteriorDoUltimo == 3) {
 												if (q4.getQnt() > 0) {
-													listaCores.get(i).setProcessoEmAndamento(q4.removerDaFila());
+													Processo proximo_processo_a_entrar = q4.removerDaFila();// REMOVE O PRIMEIRO DA FILA E ADICIONA EM UMA VARIAVEL AUXILIAR
+													if(alocarBlocoParaProcesso(proximo_processo_a_entrar)){ // TENTA ALOCAR UM BLOCO NA MEMORIA PARA O PROCESSO
+														doHit(estatisticas, proximo_processo_a_entrar.getRequisicao()); // SE ALOCOU O BLOCO DA UM HIT NA ESTATISTICA DELE
+														listaCores.get(i).setProcessoEmAndamento(proximo_processo_a_entrar); // SETA O PROCESSO NO BLOCO
+														inseriCorretamente = true; // ALIMENTA A AUXILIAR PARA SABER QUE INSERIU CORRETAMENTE
+													}
 													if (q4 != null) {
 														if (q4.getQnt() > 0) {
 															if (q4.getHead().getProcesso().getEstado()
@@ -348,7 +373,6 @@ public class MainRoundRobin extends Thread {
 														}
 													}
 
-													inseriCorretamente = true;
 												}
 												auxPosteriorDoUltimo = 0;
 											}
@@ -358,6 +382,11 @@ public class MainRoundRobin extends Thread {
 							} // FIM WHILE DE INSERIR O PROXIMO DO ANTERIOR
 
 							// SE CHEGOU AQUI � PQ TINHA PROCESSO
+							NUM_PROCESSOS_CRIADOS_EST++; // ALIMENTA O NUMERO DE PROCESSOS ALOCADOS
+							if(NUM_PROCESSOS_CRIADOS_EST == MainRoundRobin.NUM_PROCESSOS_PARA_CRIAR_LISTAS_TOP){ // VERIFICA SE JA ALOCOU PROCESSOS O SUFICIENTE PARA CRIAR AS LISTAS TOP
+								montarListaTop(estatisticas); // CRIA AS LISTAS TOP
+								NUM_PROCESSOS_CRIADOS_EST = 0; // ZERA O NUMERO DE PROCESSOS CRIADOS, PARA A POSSIBILIDADE DE UMA NOVA LISTA TOP
+							}
 							listaCores.get(i).setProntoParaReceberProcesso(false);
 						} else {
 							// NAO TEM MAIS PROCESSO
@@ -509,6 +538,7 @@ public class MainRoundRobin extends Thread {
 	
 	//MONTAR LISTA TOPS
 	public void montarListaTop(ArrayList<Estatistica> estatisticas){ // RECEBE UMA LISTA DE ESTATISTICAS COMO PARAMETRO
+		System.out.println("Debug estatisticas = "+estatisticas); // DEBUG : IMPRIME LISTAS DE ESTATISTICA
 		ArrayList<Lista> listaDeLista = new ArrayList<Lista>(); // LISTA AUXILIAR PARA ARMAZENAR AS LISTAS TOPS
 		for(int i = 0; i < numListasTop; i++){ // PERCORRE UM FOR O NUMERO DE LISTAS TOPS 
 			Estatistica maior = maiorEstatistica(estatisticas); // PEGA O TOP DA LISTA 
@@ -516,10 +546,9 @@ public class MainRoundRobin extends Thread {
 			maior.zerarHit(); // ZERA O HIT DESSE TOP, PARA DA PROXIMA VEZ PEGAR O TOP 2 E ASSIM SUCESSIVAMENTE
 		}
 		listaDeLista.add(new Lista(999)); // CRIA A LISTA DE RESTO | CODIGO 999 = RESTO
-		
 		for(int i = 0; i < Memoria.getListaInicialDeBlocos().size(); i++){ // PERCORRE A LISTA INICIAL DE BLOCOS
 			for(int k = 0; k < listaDeLista.size(); k++){ // PERCORRE AS LISTAS TOP
-				if(Memoria.getListaInicialDeBlocos().get(i).getTamanho() == listaDeLista.get(k).getBytes() || k == listaDeLista.size()-1){ 
+				if(Memoria.getListaInicialDeBlocos().get(i).getTamanho() == listaDeLista.get(k).getBytes() || k == listaDeLista.size()-1){
 					// ---------- VERIFICA SE EXISTE UM TOP CORRESPONDENTE AO TAMANHO DO BLOCO DA LISTA INICIAL PARA ENTRAR OU SE NAO EXISTIR, ENTRA NA LISTA RESTO
 					listaDeLista.get(k).addBloco(Memoria.getListaInicialDeBlocos().get(i)); // ADICIONA O BLOCO NA LISTA
 					k = listaDeLista.size(); // SE ADICIONA O BLOCO ELE PULA O RESTO DO FOR

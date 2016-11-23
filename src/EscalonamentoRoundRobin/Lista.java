@@ -23,7 +23,7 @@ public class Lista { // LISTA TOP ( SE A QUANTIDADE DE BYTES FOR 999 INDICA FILA
 	}
 	
 	public boolean addBloco(Bloco bloco){ // ADICIONA UM BLOCO NA LISTA DE BLOCOS ALOCADOS
-		if(bloco.getTamanho() == this.bytes){ //VERIFICA SE A QUANTIDADE DE BYTES DO BLOCO É CORRESPONDENTE COM A LISTA TOP
+		if(bloco.getTamanho() == this.bytes || this.bytes == 999){ //VERIFICA SE A QUANTIDADE DE BYTES DO BLOCO É CORRESPONDENTE COM A LISTA TOP OU ELA É A FILA DE RESTOS
 			blocos.add(bloco); // SE SIM ADCICIONA
 			return true;	// E RETORNA TRUE PQ DEU CERTO
 		}

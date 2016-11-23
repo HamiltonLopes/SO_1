@@ -73,7 +73,8 @@ public class Processo implements Comparable<Processo> {
 		this.deadline = deadeline;
 	}
 	public String toString(){
-		String retorno = "\n ID = " + id + "\n ESTADO = " + estado + "\n TEMPO = " + tempoTotal +"\n TEMPO RESTANTE =" + tempoDeExecucao +"\n PRIORIDADE = " + prioridade + "\n QUANTUM =  " + quantum ;
+		//AGORA MOSTRA A QUANTIDADE DE BYTES
+		String retorno = "\n ID = " + id + "\n ESTADO = " + estado + "\n TEMPO = " + tempoTotal +"\n TEMPO RESTANTE =" + tempoDeExecucao +"\n PRIORIDADE = " + prioridade + "\n QUANTUM =  " + quantum+"\nBYTES = "+requisicao ;
 		return retorno;
 	}
 	

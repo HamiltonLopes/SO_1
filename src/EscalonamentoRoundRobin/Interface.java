@@ -95,6 +95,8 @@ public class Interface extends JFrame {
 				MainRoundRobin.cores = Integer.parseInt(caixaCores.getText());
 				MainRoundRobin.quantum = Integer.parseInt(caixaQuantun.getText());
 				//ALIMENTAR A VARIAVEL COM O NUMERO DE LISTAS TOPS
+				// NUMERO MINIMO E MAXIMO DE BYTES DO BLOCO
+				// NUMERO DE PROCESSOS QUE PRECISARÃO SER INSERIDOS PARA SEREM CRIADAS AS LISTAS TOP
 				MainRoundRobin mrr = new MainRoundRobin();
 				mrr.start();
 				fechar();
