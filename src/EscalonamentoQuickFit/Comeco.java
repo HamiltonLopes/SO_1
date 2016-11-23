@@ -1,19 +1,17 @@
-package EscalonamentoRoundRobin;
+package EscalonamentoQuickFit;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 
 public class Comeco extends JFrame {
 
@@ -26,38 +24,39 @@ public class Comeco extends JFrame {
 		
 		setTitle("Escalonadores de Processos");
 		setVisible(true);
-		setSize(370, 366);
+		setSize(565, 351);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 153, 153));
-		panel.setBounds(0, 0, 354, 327);
+		panel.setBounds(0, 0, 567, 327);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton btnRoundRobin = new JButton("Round Robin");
+		JButton btnRoundRobin = new JButton("Quick Fitness"); // BOTAO INICIO
 		btnRoundRobin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				fechar();
 			}
 		});
-		btnRoundRobin.setBounds(108, 87, 134, 23);
+		btnRoundRobin.setBounds(211, 138, 134, 23);
 		panel.add(btnRoundRobin);
 		
-		JButton btnLtg = new JButton("LTG");
-		btnLtg.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnLtg.setBounds(108, 139, 134, 23);
-		panel.add(btnLtg);
+//		JButton btnLtg = new JButton("LTG");
+//		btnLtg.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//			}
+//		});
+//		btnLtg.setBounds(108, 139, 134, 23);
+//		panel.add(btnLtg);
 		
-		JLabel lblEscalonadorDeProcessos = new JLabel("ESCALONADOR DE PROCESSOS");
+		JLabel lblEscalonadorDeProcessos = new JLabel("ESCALONADOR DE PROCESSOS"); // LABEL DO TITULO
 		lblEscalonadorDeProcessos.setForeground(new Color(255, 255, 255));
 		lblEscalonadorDeProcessos.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblEscalonadorDeProcessos.setBounds(20, 11, 334, 81);
+		lblEscalonadorDeProcessos.setBounds(20, 11, 535, 81);
+		lblEscalonadorDeProcessos.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(lblEscalonadorDeProcessos);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

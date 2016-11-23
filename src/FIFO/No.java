@@ -1,7 +1,7 @@
 package FIFO;
 
-import EscalonamentoRoundRobin.Core;
-import EscalonamentoRoundRobin.Processo;
+import EscalonamentoQuickFit.Core;
+import EscalonamentoQuickFit.Processo;
 
 public class No {
 

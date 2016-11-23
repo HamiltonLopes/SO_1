@@ -1,29 +1,45 @@
-package EscalonamentoRoundRobin;
+package EscalonamentoQuickFit;
+
+import java.awt.Color;
+
+import javax.swing.JTextArea;
 
 public class Bloco { 
 	private int tamanho; // TAMANHO DO BLOCO EM BYTES
 	private Processo processoDoBloco; // PROCESSO NO BLOCO ( SE TIVER )
+	private JTextArea txtAreaBlocos = new JTextArea(4,16); // CRIA UM TXTAREA PARA O BLOCO EM QUESTÃO
+	
+//	panelListaTop.add(txtAreaBlocos); // ADICIONA O TEXTAREA DO BLOCO NO PANEL DA LISTA 
 	
 	public Bloco (int bytes){ // AO CRIAR UM BLOCO RECEBE UM TAMANHO EM BYTES
 		this.tamanho = bytes; // ALIMENTA O TAMANHO
 		this.processoDoBloco = null; // INICIA A VARIAVEL PROCESSO NO BLOCO COM NULL
+		this.txtAreaBlocos.setBackground(new Color(102, 204, 102)); /// ADICIONA UMA COR AO TXTAREA DO BLOCO
+		this.txtAreaBlocos.setEditable(false); // TIRA O EDITABLE PARA NÃO PODER EDITAR QUANDO ESTIVER EXECUTANDO
+		this.txtAreaBlocos.setText(toString()); // ADICIONA O toString() DO BLOCO NO TEXTAREA PARA EXIBIR NA TELA AS INFORMAÇÕES DO BLOCO
+	}
+	
+	public JTextArea getJTextArea(){
+		return txtAreaBlocos;
 	}
 	
 	public boolean alocarProcesso(Processo processoASerAlocado){ // RECEBE UM PROCESSO PARA OCUPAR O BLOCO
-		if(this.processoDoBloco == null){ // SE O PROCESSO FOR NULO, ENTRA 
+		if(this.processoDoBloco == null){ // SE O PROCESSO FOR NULO, ENTRA
 			processoDoBloco = processoASerAlocado; // ALOCA O PROCESSO NO BLOCO
+			this.txtAreaBlocos.setText(toString()); // ATUALIZA AS INFO DO BLOCO QUANDO ALOCA O PROCESSO
 			return true; // RETORNA TRUE PQ DEU CERTO
 		}
 		return false; // SE JA TIVER PROCESSO NO BLOCO ELE RETORNA FALSO, PQ ANTES TEM Q DESALOCAR
 	}
 	
 	public Processo getProcesso(){ // RETORNA O PROCESSO ALOCADO NO BLOCO
-		return processoDoBloco; // RETORNA NULL CASO N�O TENHA UM PROCESSO ALOCADO NO BLOCO
+		return processoDoBloco; // RETORNA NULL CASO N�O TENHA UM PROCESSO ALOCADO NO BLOCO
 	}
 	
 	public boolean desalocarProcesso(){ // DESALOCA O PROCESSO DO BLOCO (DEIXA ELE LIVRE)
 		if(this.processoDoBloco != null){ // SE EXISTIR UM PROCESSO NO BLOCO, ENTRA
 			processoDoBloco = null; // COLOCA O PROCESSO PARA NULO (LIBERA)
+			this.txtAreaBlocos.setText(toString()); // ATUALIZA AS INFO DO BLOCO QUANDO DESALOCA O PROCESSO
 			return true; // RETORNA TRUE PQ DEU TD CERTO
 		}
 		return false; // SE NÃO TIVER PROCESSO NO BLOCO RETORNA FALSO, PQ N TEM PROCESSO PARA DESALOCAR

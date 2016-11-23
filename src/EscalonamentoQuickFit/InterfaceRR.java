@@ -1,7 +1,6 @@
-package EscalonamentoRoundRobin;
+package EscalonamentoQuickFit;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -10,13 +9,13 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 import FIFO.Fila;
-import javax.swing.JLabel;
 
 public class InterfaceRR extends JFrame {
 	private int nProcessos = 4;
@@ -29,9 +28,11 @@ public class InterfaceRR extends JFrame {
 	static JTextArea textArea_3 = new JTextArea();
 	static JTextArea textArea_4 = new JTextArea();
 	static JPanel panelTerminados = new JPanel();
+	static JScrollPane scrollListaDeLista = new JScrollPane(); // CRIA O SCROLL
+	static JPanel panelListadeLista = new JPanel(); // CRIA O PANEL
 
 	public InterfaceRR(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<Core> cores, ArrayList<Processo> terminados) {
-		setSize(900, 600);
+		setSize(889, 783);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -51,7 +52,7 @@ public class InterfaceRR extends JFrame {
 		panel.add(textArea_4);
 
 		panel.setBackground(new Color(0, 153, 153));
-		panel.setBounds(0, 0, 884, 561);
+		panel.setBounds(0, 0, 889, 718);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -62,21 +63,25 @@ public class InterfaceRR extends JFrame {
 		panelProcessos.setBackground(Color.WHITE);
 		scrollPane.setViewportView(panelProcessos);
 		panelProcessos.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-
-		// for (int i = 0; i < cores.size(); i++) {
-		// JTextArea textAreaProcessos = new JTextArea(6,16);
-		// textAreaProcessos.setBackground(new Color(102, 204, 102));
-		// textAreaProcessos.setEditable(false);
-		// panelProcessos.add(textAreaProcessos);
-		// textAreaProcessos.setText(cores.get(i).toString());
-		// }
+		
+		
+		
+		/*		 MÉTODO DE MOSTRAR AS LISTAS		*/
+		// ------------------------------------- CRIANDO O PANEL E SCROLL DA LISTA DE LISTAS ---------------------------
+		 
+		panel.add(scrollListaDeLista); // ADICIONA O SCROLL NO PANEL PRINCIPAL
+		scrollListaDeLista.setBounds(28, 586, 788, 120); // POE O TAMANHO DO SCROLL
+		panelListadeLista.setBounds(0, 0, 10, 10); // POE O TAMANHO DO PANEL
+		scrollListaDeLista.setViewportView(panelListadeLista); // ADICIONA O PANEL COMO VIEWPORT DO SCROLL
+		panelListadeLista.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5)); // ADICIONA O LAYOUT HORIZONTAL AO PANEL (PARA EXIBIR AS LISTAS UMA DO LADO DA OUTRA)
+		
 
 		JButton btnAdicionarProcesso = new JButton("Adicionar Processo");
 		btnAdicionarProcesso.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MainRoundRobin.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
-				MainRoundRobin.attFilas();
+				QuickFit.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
+				QuickFit.attFilas();
 //				
 //				
 //				
@@ -147,7 +152,7 @@ public class InterfaceRR extends JFrame {
 		btnTerminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MainRoundRobin.terminar();
+				QuickFit.terminar();
 			}
 		});
 		btnTerminar.setBounds(727, 504, 89, 23);
@@ -162,7 +167,7 @@ public class InterfaceRR extends JFrame {
 		JLabel lblFilaTerminados = new JLabel("Fila Terminados");
 		lblFilaTerminados.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblFilaTerminados.setForeground(new Color(153, 255, 204));
-		lblFilaTerminados.setBounds(31, 382, 98, 14);
+		lblFilaTerminados.setBounds(31, 382, 157, 14);
 		panel.add(lblFilaTerminados);
 		
 		JPanel panel_1 = new JPanel();
@@ -229,9 +234,26 @@ public class InterfaceRR extends JFrame {
 		txtpnProcessoAdicionado.setBackground(new Color(0, 153, 153));
 		txtpnProcessoAdicionado.setBounds(739, 436, 90, 36);
 		panel.add(txtpnProcessoAdicionado);
+		
+		JLabel lblListasTop = new JLabel("Listas TOP"); // LABEL QUE INDICA QUE O CAMPO ABAIXO SÃO AS LISTAS TOPS
+		lblListasTop.setForeground(new Color(153, 255, 204)); // CONFIGURAÇÃO DE COR DE FONTE
+		lblListasTop.setFont(new Font("Dialog", Font.BOLD, 11)); // CONFIGURAÇÃO DE FONTE
+		lblListasTop.setBounds(28, 572, 157, 14); // CONFIGURAÇÃO DE POSIÇÃO
+		panel.add(lblListasTop); // ADICIONANDO NO PANEL PRINCIPAL O LABEL
 
 		// JFrame frame = new JFrame("Round Robin");
 		// frame.setVisible(true);
 		// frame.
 	}
+	public static void reiniciarScrollTopLista(){ // MERODO PARA REINICIAR O PANEL DO SCROLL DE LSITA TOP ( REFATORA AS LISTAS)
+		int ncomp = panelListadeLista.getComponentCount(); // PEGA O NUMERO DE COMPONENTES (LISTAS)
+		for (int i = 0; i < ncomp; i++ ){ // PERCORRE UM FOR NCOMP VEZES
+			panelListadeLista.remove(panelListadeLista.getComponent(0)); // REMOVE TODOS OS COMPONENTES DO PANEL DO SCROLL
+		}
+	}
+	
+	public static void repaintPanelTopLista(){ // REPINTA O PANEL DO SCROLL DAS LISTAS
+		panelListadeLista.repaint();
+	}
+	
 }

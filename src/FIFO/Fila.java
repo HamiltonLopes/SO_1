@@ -1,7 +1,7 @@
 package FIFO;
 
-import EscalonamentoRoundRobin.Core;
-import EscalonamentoRoundRobin.Processo;
+import EscalonamentoQuickFit.Core;
+import EscalonamentoQuickFit.Processo;
 
 public class Fila {
 	private int qnt;
@@ -59,7 +59,7 @@ public class Fila {
 				this.tail = null;
 			} else {
 				No aux = tail;
-				// -1 pq ja começa no ultimo e o outro -1 pq ta excluindo um
+				// -1 pq ja comeï¿½a no ultimo e o outro -1 pq ta excluindo um
 				for (int i = 0; i < getQnt() - 2; i++) {
 					aux = aux.getAnterior();
 				}

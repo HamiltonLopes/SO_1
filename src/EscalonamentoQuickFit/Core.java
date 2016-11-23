@@ -1,4 +1,4 @@
-package EscalonamentoRoundRobin;
+package EscalonamentoQuickFit;
 
 import java.awt.Color;
 

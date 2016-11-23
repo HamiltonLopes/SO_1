@@ -1,12 +1,12 @@
-package EscalonamentoRoundRobin;
+package EscalonamentoQuickFit;
 
 import java.util.ArrayList;
 
 
 
 public class Memoria {
-	private static final int memoriaTotal = 10000; // MEMORIA TOTAL
-	private static int memoriaDisponivel = memoriaTotal; // MEMORIA DISPONIVEL QUE INICIALMENTE É IGUAL A MEMORIA TOTAL
+	static int MEMORIA_TOTAL = 10000; // MEMORIA TOTAL
+	private static int memoriaDisponivel = MEMORIA_TOTAL; // MEMORIA DISPONIVEL QUE INICIALMENTE É IGUAL A MEMORIA TOTAL
 	private static ArrayList<Bloco> listaInicialDeBlocos = new ArrayList<Bloco>(); // LISTA INICIAL DOS BLOCOS QUE VÃO SENDO CRIADOS ANTES DAS LISTAS TOP
 	private static ArrayList<Lista> listaDeListas = new ArrayList<Lista>(); // LISTA DE TOPS + LISTA RESTO
 	
@@ -19,6 +19,7 @@ public class Memoria {
 					if(Memoria.listaDeListas.get(i).getBytes() == bytes || i == Memoria.listaDeListas.size()-1){ 
 						// VERIFICO SE O TAMANHO DO BLOCO NOVO É UM DOS TAMANHOS TOPS, CASO SEJA ENTRA, CASO NAO SEJA ENTRA TAMBÉM MAS COMO LISTA DE RESTO
 						Memoria.listaDeListas.get(i).addBloco(novoBloco); // ADICIONO NA LISTA O NOVO BLOCO
+						return novoBloco;
 					}
 				}
 			}
@@ -39,14 +40,14 @@ public class Memoria {
 	}
 	
 	public static boolean restaurarMemoria(int bytesLivres){ // RESTAURA A MEMORIA OU SEJA, DESALOCA O PROCESSO
-		if(Memoria.memoriaDisponivel != Memoria.memoriaTotal){ // SE A MEMORIA DISPONIVEL FOR DIFERENTE DA TOTAL, ENTRA
+		if(Memoria.memoriaDisponivel != Memoria.MEMORIA_TOTAL){ // SE A MEMORIA DISPONIVEL FOR DIFERENTE DA TOTAL, ENTRA
 			Memoria.memoriaDisponivel += bytesLivres; // ADICIONA OS BYTES DO PROCESSO QUANDO ELE VAI DESALOCAR O BLOCO
 			return true; // RETORNA VERDADEIRO SE DER CERTO
 		}
 		return false; // SE CASO A MEMORIA JA ESTEJA DO TAMANHO MAXIMO, ENTAO NAO VAI ADICIONAR POIS OUVE ALGO ERRADO
 	}
 	public static int getMemoriaTotal() { // RETORNA A MEMORIA TOTAL 
-		return Memoria.memoriaTotal;
+		return Memoria.MEMORIA_TOTAL;
 	}
 	
 	public static boolean existeListaTop(){ // RETORNA TRUE CASO A LISTA DE TOPS EXISTA

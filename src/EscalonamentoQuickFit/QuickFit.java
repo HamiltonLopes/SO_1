@@ -1,4 +1,4 @@
-package EscalonamentoRoundRobin;
+package EscalonamentoQuickFit;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -8,7 +8,7 @@ import javax.swing.JTextArea;
 
 import FIFO.Fila;
 
-public class MainRoundRobin extends Thread {
+public class QuickFit extends Thread {
 
 	static ArrayList<Processo> listaTerminados = new ArrayList<Processo>();
 	static ArrayList<Core> listaCores = new ArrayList<Core>();
@@ -22,10 +22,10 @@ public class MainRoundRobin extends Thread {
 	public static int cores = 0;
 	public static int processos = 0;
 	public static int quantum = 0;
-	public static int numListasTop = 3; // QUANTIDADE DE LISTAS TOP
-	public static final int VALOR_MINIMO = 32; // VALOR MINIMO DE UM BLOCO EM BYTES
-	public static final int VALOR_MAXIMO = 1024; // VALOR MAXIMO DE UM BLOCO EM BYTES
-	public static final int NUM_PROCESSOS_PARA_CRIAR_LISTAS_TOP = 10; //NUMERO DE PROCESSOS NECESSARIOS PARA CRIAR AS LISTAS TOP
+	public static int NUM_LISTA_TOP = 3; // QUANTIDADE DE LISTAS TOP
+	public static int VALOR_MINIMO = 32; // VALOR MINIMO DE UM BLOCO EM BYTES
+	public static int VALOR_MAXIMO = 1024; // VALOR MAXIMO DE UM BLOCO EM BYTES
+	public static int NUM_PROCESSOS_PARA_CRIAR_LISTAS_TOP = 10; //NUMERO DE PROCESSOS NECESSARIOS PARA CRIAR AS LISTAS TOP
 	public static int prioridadeQuatum;
 	public static int quantidadeDeCore;
 	public static boolean programaON;
@@ -218,7 +218,7 @@ public class MainRoundRobin extends Thread {
 		});
 		//CRIANDO A LISTA DE ESTATISTICAS
 		ArrayList<Estatistica> estatisticas = new ArrayList<Estatistica>(); // LISTA COM AS ESTATISTICAS
-		for (int i = MainRoundRobin.VALOR_MINIMO; i <= MainRoundRobin.VALOR_MAXIMO; i*=2 ){ // PERCORRE TODAS AS ESTATISTICAS POSSIVEIS
+		for (int i = QuickFit.VALOR_MINIMO; i <= QuickFit.VALOR_MAXIMO; i*=2 ){ // PERCORRE TODAS AS ESTATISTICAS POSSIVEIS
 			estatisticas.add(new Estatistica(i)); //  CRIA AS ESTATISTICAS
 		}
 		int NUM_PROCESSOS_CRIADOS_EST = 0; //VARIAVEL QUE IRÁ INDICAR QUANDO AS LISTAS TOPS DEVERÃO SER MONTADAS
@@ -383,7 +383,7 @@ public class MainRoundRobin extends Thread {
 
 							// SE CHEGOU AQUI � PQ TINHA PROCESSO
 							NUM_PROCESSOS_CRIADOS_EST++; // ALIMENTA O NUMERO DE PROCESSOS ALOCADOS
-							if(NUM_PROCESSOS_CRIADOS_EST == MainRoundRobin.NUM_PROCESSOS_PARA_CRIAR_LISTAS_TOP){ // VERIFICA SE JA ALOCOU PROCESSOS O SUFICIENTE PARA CRIAR AS LISTAS TOP
+							if(NUM_PROCESSOS_CRIADOS_EST == QuickFit.NUM_PROCESSOS_PARA_CRIAR_LISTAS_TOP){ // VERIFICA SE JA ALOCOU PROCESSOS O SUFICIENTE PARA CRIAR AS LISTAS TOP
 								montarListaTop(estatisticas); // CRIA AS LISTAS TOP
 								NUM_PROCESSOS_CRIADOS_EST = 0; // ZERA O NUMERO DE PROCESSOS CRIADOS, PARA A POSSIBILIDADE DE UMA NOVA LISTA TOP
 							}
@@ -538,12 +538,16 @@ public class MainRoundRobin extends Thread {
 	
 	//MONTAR LISTA TOPS
 	public void montarListaTop(ArrayList<Estatistica> estatisticas){ // RECEBE UMA LISTA DE ESTATISTICAS COMO PARAMETRO
+		// ======================== FAZER UM METODO QUE EXCLUA AS ANTIGAS LISTAS TOPS
+		// PQ TA BUGANDO A INTERFACEEE ====================
+		InterfaceRR.reiniciarScrollTopLista(); // APAGA A TOP LISTA ANTIGA PARA GERAR A NOVA
 		System.out.println("Debug estatisticas = "+estatisticas); // DEBUG : IMPRIME LISTAS DE ESTATISTICA
 		ArrayList<Lista> listaDeLista = new ArrayList<Lista>(); // LISTA AUXILIAR PARA ARMAZENAR AS LISTAS TOPS
-		for(int i = 0; i < numListasTop; i++){ // PERCORRE UM FOR O NUMERO DE LISTAS TOPS 
+		for(int i = 0; i < NUM_LISTA_TOP; i++){ // PERCORRE UM FOR O NUMERO DE LISTAS TOPS 
 			Estatistica maior = maiorEstatistica(estatisticas); // PEGA O TOP DA LISTA 
 			listaDeLista.add(new Lista(maior)); // CRIA UMA LISTA TOP
 			maior.zerarHit(); // ZERA O HIT DESSE TOP, PARA DA PROXIMA VEZ PEGAR O TOP 2 E ASSIM SUCESSIVAMENTE
+			InterfaceRR.repaintPanelTopLista(); // REPINTA O PANEL DO SCROLL
 		}
 		listaDeLista.add(new Lista(999)); // CRIA A LISTA DE RESTO | CODIGO 999 = RESTO
 		for(int i = 0; i < Memoria.getListaInicialDeBlocos().size(); i++){ // PERCORRE A LISTA INICIAL DE BLOCOS
@@ -554,6 +558,7 @@ public class MainRoundRobin extends Thread {
 					k = listaDeLista.size(); // SE ADICIONA O BLOCO ELE PULA O RESTO DO FOR
 				}
 			}
+			InterfaceRR.repaintPanelTopLista(); // REPINTA O PANEL DO SCROLL
 		}
 		
 		
