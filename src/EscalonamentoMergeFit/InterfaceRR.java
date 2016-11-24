@@ -32,7 +32,7 @@ public class InterfaceRR extends JFrame {
 	static JScrollPane scrollListaBlocos = new JScrollPane(); // CRIA O SCROLL
 	static JPanel panelListadeLista = new JPanel(); // CRIA O PANEL
 
-	public InterfaceRR(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<Core> cores, ArrayList<Processo> terminados) {
+	public InterfaceRR(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<CoreMerge> cores, ArrayList<Processo> terminados) {
 		setSize(889, 783);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

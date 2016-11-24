@@ -1,7 +1,6 @@
 package EscalonamentoQuickFit;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Escalonador.Processo;
 import FIFO.Fila;
 
-public class Interface extends JFrame {
+public class InterfaceInicialQF extends JFrame {
 
 
 	static Fila f = new Fila();
@@ -27,13 +27,13 @@ public class Interface extends JFrame {
 	public JTextField caixaQuantun;
 	public String quant;
 	private JTextField caixaCores;
-	private JTextField numListaTop; // CAIXA DE TEXTO ONDE IR√Å INDICAR O NUMERO DE LISTAS TOPS
-	private JTextField tamMinBloco; // VAIXA DE TEXTO ONDE IR√Å INDICAR O TAMANHO MINIMO DOS BLOCOS
-	private JTextField tamMaxBloco; // CAIXA DE TEXTO ONDE IR√Å INDICAR O TAMANHO MAXIMO DOS BLOCOS
-	private JTextField nPrscssF; // CAIXA DE TEXTO ONDE IR√Å INDICAR O NUMERO DE PROCESSOS CRIADOS PARA PODER GERAR A FILA TOP
+	private JTextField numListaTop; // CAIXA DE TEXTO ONDE IR√? INDICAR O NUMERO DE LISTAS TOPS
+	private JTextField tamMinBloco; // VAIXA DE TEXTO ONDE IR√? INDICAR O TAMANHO MINIMO DOS BLOCOS
+	private JTextField tamMaxBloco; // CAIXA DE TEXTO ONDE IR√? INDICAR O TAMANHO MAXIMO DOS BLOCOS
+	private JTextField nPrscssF; // CAIXA DE TEXTO ONDE IR√? INDICAR O NUMERO DE PROCESSOS CRIADOS PARA PODER GERAR A FILA TOP
 	private JTextField qtdMemoria;
 
-	public Interface(){
+	public InterfaceInicialQF(){
 
 		getContentPane().setLayout(null);
 
@@ -100,10 +100,10 @@ public class Interface extends JFrame {
 				QuickFit.cores = Integer.parseInt(caixaCores.getText());
 				QuickFit.quantum = Integer.parseInt(caixaQuantun.getText());
 				QuickFit.NUM_LISTA_TOP = Integer.parseInt(numListaTop.getText()); // ALIMENTAR A VARIAVEL PARA SABER O NUMERO DE LISTAS TOP
-				QuickFit.VALOR_MINIMO = Integer.parseInt(tamMinBloco.getText());// ALIMENTA A VARIAVEL PARA SABER O TAMANHO MINIMO DOS BLOCOS
-				QuickFit.VALOR_MAXIMO = Integer.parseInt(tamMaxBloco.getText());// ALIMENTA A VARIAVEL PARA SABER O TAMANHO MAXIMO DOS BLOCOS
+				Processo.VALOR_MINIMO = Integer.parseInt(tamMinBloco.getText());// ALIMENTA A VARIAVEL PARA SABER O TAMANHO MINIMO DOS BLOCOS
+				Processo.VALOR_MAXIMO = Integer.parseInt(tamMaxBloco.getText());// ALIMENTA A VARIAVEL PARA SABER O TAMANHO MAXIMO DOS BLOCOS
 				QuickFit.NUM_PROCESSOS_PARA_CRIAR_LISTAS_TOP = Integer.parseInt(nPrscssF.getText()); // ALIMENTA A VARIAVEL PARA SABER O NUMERO DE PROCESSOS QUE PRECISAR√ÉO SER CRIADOS PARA INICIALIZAR AS LISTAS TOP
-				Memoria.MEMORIA_TOTAL = Integer.parseInt(qtdMemoria.getText());// ALIMENTA A VARIAVEL PARA SABER O TAMANHO TOTAL DA MEMORIA EM BYTES
+				MemoriaQuick.MEMORIA_TOTAL = Integer.parseInt(qtdMemoria.getText());// ALIMENTA A VARIAVEL PARA SABER O TAMANHO TOTAL DA MEMORIA EM BYTES
 				QuickFit mrr = new QuickFit();
 				mrr.start();
 				fechar();
@@ -137,25 +137,25 @@ public class Interface extends JFrame {
 		nPrscssF.setBounds(543, 322, 86, 20); // POSICIONAR A CAIXA
 		panelRR.add(nPrscssF);// ADICIONANDO A CAIXA NO PANEL
 		
-		JLabel labelNLista = new JLabel("Numero de listas top"); //LABEL QUE IR√Å INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
+		JLabel labelNLista = new JLabel("Numero de listas top"); //LABEL QUE IR√? INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
 		labelNLista.setForeground(Color.WHITE); // FONTE BRANCA
 		labelNLista.setFont(new Font("Dialog", Font.BOLD, 15)); // CONFIGURACAO DE FONTE
 		labelNLista.setBounds(348, 231, 177, 14); // CONFIGURACAO DE POSICAO
 		panelRR.add(labelNLista); // ADICIONANDO O LABEL NO PANEL
 		
-		JLabel lblTamMin = new JLabel("Tamanho min bloco em bytes");//LABEL QUE IR√Å INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
+		JLabel lblTamMin = new JLabel("Tamanho min bloco em bytes");//LABEL QUE IR√? INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
 		lblTamMin.setForeground(Color.WHITE);// FONTE BRANCA
 		lblTamMin.setFont(new Font("Dialog", Font.BOLD, 15));// CONFIGURACAO DE FONTE
 		lblTamMin.setBounds(282, 261, 257, 14);// CONFIGURACAO DE POSICAO
 		panelRR.add(lblTamMin); // ADICIONANDO O LABEL NO PANEL
 		
-		JLabel lblNEstatistica = new JLabel("N processos necessarios para criar listas");//LABEL QUE IR√Å INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
+		JLabel lblNEstatistica = new JLabel("N processos necessarios para criar listas");//LABEL QUE IR√? INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
 		lblNEstatistica.setForeground(Color.WHITE);// FONTE BRANCA
 		lblNEstatistica.setFont(new Font("Dialog", Font.BOLD, 15));// CONFIGURACAO DE FONTE
 		lblNEstatistica.setBounds(195, 324, 344, 14);// CONFIGURACAO DE POSICAO
 		panelRR.add(lblNEstatistica); // ADICIONANDO O LABEL NO PANEL
 		
-		JLabel lblTamMaxBloco = new JLabel("Tamanho max bloco em bytes");//LABEL QUE IR√Å INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
+		JLabel lblTamMaxBloco = new JLabel("Tamanho max bloco em bytes");//LABEL QUE IR√? INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
 		lblTamMaxBloco.setForeground(Color.WHITE);// FONTE BRANCA
 		lblTamMaxBloco.setFont(new Font("Dialog", Font.BOLD, 15));// CONFIGURACAO DE FONTE
 		lblTamMaxBloco.setBounds(280, 293, 259, 14);// CONFIGURACAO DE POSICAO
@@ -166,7 +166,7 @@ public class Interface extends JFrame {
 		qtdMemoria.setBounds(543, 348, 86, 20);// POSICIONAR A CAIXA
 		panelRR.add(qtdMemoria); // ADICIONANDO A CAIXA NO PANEL
 
-		JLabel lblqtdMemoria = new JLabel("Memoria total"); //LABEL QUE IR√Å INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
+		JLabel lblqtdMemoria = new JLabel("Memoria total"); //LABEL QUE IR√? INFORMAR AO USUARIO OQ ELE DEVE PREENCHER NO CAMPO
 		lblqtdMemoria.setForeground(Color.WHITE); // FONTE BRANCA
 		lblqtdMemoria.setFont(new Font("Dialog", Font.BOLD, 15)); // CONFIGURACAO DE FONTE
 		lblqtdMemoria.setBounds(413, 350, 117, 14); // CONFIGURACAO DE POSICAO

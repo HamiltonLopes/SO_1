@@ -1,12 +1,12 @@
 package FIFO;
 
 import Escalonador.Processo;
-import EscalonamentoQuickFit.Core;
+import EscalonamentoQuickFit.CoreQuick;
 
 public class No {
 
 	Processo processo;
-	Core core;
+	CoreQuick core;
 	No anterior;
 
 
@@ -16,17 +16,17 @@ public class No {
 		this.processo = processo;
 		this.anterior = anterior;
 	}
-	public No(Core core, No proximo) {
+	public No(CoreQuick core, No proximo) {
 		this.core = core;
 		this.anterior = anterior;
 	}
 
 
 
-	public Core getCore() {
+	public CoreQuick getCore() {
 		return core;
 	}
-	public void setCore(Core core) {
+	public void setCore(CoreQuick core) {
 		this.core = core;
 	}
 		

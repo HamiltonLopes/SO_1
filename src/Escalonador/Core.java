@@ -1,4 +1,4 @@
-package EscalonamentoQuickFit;
+package Escalonador;
 
 import java.awt.Color;
 
@@ -6,14 +6,14 @@ import javax.swing.JTextArea;
 
 import Escalonador.Processo;
 
-public class Core extends Thread {
+public abstract class Core extends Thread {
 
 	private static int idUniversal = 0;
 	private Processo processoEmAndamento;
-	 boolean processamento;
+	public boolean processamento;
 	private boolean prontoParaReceberProcesso;
 	private int id;
-	JTextArea textAreaProcessos = new JTextArea(6,16);
+	protected JTextArea textAreaProcessos = new JTextArea(6,16);
 
 	public Core() {
 		this.id = idUniversal++;
@@ -24,9 +24,11 @@ public class Core extends Thread {
 		
 		textAreaProcessos.setBackground(new Color(153, 255, 102));
 		textAreaProcessos.setEditable(false);
-		InterfaceQF.panelProcessos.add(textAreaProcessos);
+		interAddPanel();
 		textAreaProcessos.setText(this.toString());			
 	}
+	
+	protected abstract void interAddPanel(); //METODO PARA SER IMPLEMENTADO NAS CLASSES QUE VAO EXTENDER, ONDE SERÁ ALIMENTADO A INTERFACE COM O TEXT AREA DOS PROCESSOS
 
 	public long getId() {
 		return id;

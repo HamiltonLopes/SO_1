@@ -32,7 +32,7 @@ public class InterfaceQF extends JFrame {
 	static JScrollPane scrollListaDeLista = new JScrollPane(); // CRIA O SCROLL
 	static JPanel panelListadeLista = new JPanel(); // CRIA O PANEL
 
-	public InterfaceQF(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<Core> cores, ArrayList<Processo> terminados) {
+	public InterfaceQF(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<CoreQuick> cores, ArrayList<Processo> terminados) {
 		setSize(889, 783);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

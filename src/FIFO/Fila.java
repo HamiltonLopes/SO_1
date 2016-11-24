@@ -1,7 +1,7 @@
 package FIFO;
 
 import Escalonador.Processo;
-import EscalonamentoQuickFit.Core;
+import EscalonamentoQuickFit.CoreQuick;
 
 public class Fila {
 	private int qnt;

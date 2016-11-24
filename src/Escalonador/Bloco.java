@@ -56,7 +56,7 @@ public class Bloco {
 	public String toString(){ // RETORNA O BLOCO EM FORMATO DE STRING
 		String retorno = "Bytes = "+tamanho+"\nProcesso = "; // CRIA UMA STRING RETORNO E ADICIONA O TAMANHO DO BLOCO
 		if(processoDoBloco != null) retorno += processoDoBloco.id; // ADICIONA O ID DO PROCESSO SE TIVER PROCESSO
-		else retorno += "null"; // SE NAO TIVER PROCESSO ADICIONA NULO
+		else retorno += "Sem processo"; // SE NAO TIVER PROCESSO ADICIONA NULO
 		retorno += "\nEstado = "; // ADICIONA O ESTADO DO PROCESSO
 		if(this.isLivre()) retorno += "Livre"; // SE ESTIVER LIVRE ADICIONA LIVRE
 		else retorno += "Ocupado"; // CASO NAO ESTEJA ADICIONA OCUPADO

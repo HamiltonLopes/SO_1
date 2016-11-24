@@ -13,13 +13,13 @@ import FIFO.Fila;
 public class MainRoundRobin extends Thread {
 
 	static ArrayList<Processo> listaTerminados = new ArrayList<Processo>();
-	static ArrayList<Core> listaCores = new ArrayList<Core>();
+	static ArrayList<CoreMerge> listaCores = new ArrayList<CoreMerge>();
 
 	static Fila q4 = new Fila();
 	static Fila q3 = new Fila();
 	static Fila q2 = new Fila();
 	static Fila q = new Fila();
-
+	
 	private static int auxPosteriorDoUltimo = 0;
 	public static int cores = 0;
 	public static int processos = 0;
@@ -191,7 +191,7 @@ public class MainRoundRobin extends Thread {
 
 	////// E S C A L O N A M E N T O //////
 	public void run() {
-		Memoria.start(); // STARTA A MEMORIA
+		MemoriaMerge.start(); // STARTA A MEMORIA
 		programaON = true;
 		adicionarProcessos(processos, new Color(153, 204, 204), new Color(255, 204, 102), new Color(255, 99, 71), new Color(153, 255, 102));
 
@@ -199,7 +199,7 @@ public class MainRoundRobin extends Thread {
 		imprimirListas();
 
 		for (int i = 0; i < cores; i++) {
-			Core a = new Core();
+			CoreMerge a = new CoreMerge();
 			a.start();
 			listaCores.add(a);
 		}
@@ -236,6 +236,9 @@ public class MainRoundRobin extends Thread {
 								voltarParaFila(listaCores.get(i).getProcessoEmAndamento()); // SE.NAO, VOLTA.PRAS.FILAS
 								
 							}
+							
+							//DESALOCAR BLOCO DO PROCESSO
+							desalocarBlocoDoProcesso(listaCores.get(i).getProcessoEmAndamento());
 						}
 
 						if (temProcesso()) {
@@ -245,7 +248,11 @@ public class MainRoundRobin extends Thread {
 							while (!inseriCorretamente) {
 								if (auxPosteriorDoUltimo == 0) {
 									if (q.getQnt() > 0) {
-										listaCores.get(i).setProcessoEmAndamento(q.removerDaFila()); 
+										Processo novoProcesso = q.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+										if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+											listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+											inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+										}
 										if (q != null) {
 											if (q.getQnt() > 0) {
 												if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
@@ -263,13 +270,16 @@ public class MainRoundRobin extends Thread {
 											}
 										}
 
-										inseriCorretamente = true;
 									}
 									auxPosteriorDoUltimo = 1;
 								} else {
 									if (auxPosteriorDoUltimo == 1) {
 										if (q2.getQnt() > 0) {
-											listaCores.get(i).setProcessoEmAndamento(q2.removerDaFila());
+											Processo novoProcesso = q2.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+											if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+												listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+												inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+											}
 
 											if (q2 != null) {
 												if (q2.getQnt() > 0) {
@@ -291,13 +301,16 @@ public class MainRoundRobin extends Thread {
 												}
 											}
 
-											inseriCorretamente = true;
 										}
 										auxPosteriorDoUltimo = 2;
 									} else {
 										if (auxPosteriorDoUltimo == 2) {
 											if (q3.getQnt() > 0) {
-												listaCores.get(i).setProcessoEmAndamento(q3.removerDaFila());
+												Processo novoProcesso = q3.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+												if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+													listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+													inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+												}
 												if (q3 != null) {
 													if (q3.getQnt() > 0) {
 														if (q3.getHead().getProcesso().getEstado()
@@ -318,13 +331,16 @@ public class MainRoundRobin extends Thread {
 													}
 												}
 
-												inseriCorretamente = true;
 											}
 											auxPosteriorDoUltimo = 3;
 										} else {
 											if (auxPosteriorDoUltimo == 3) {
 												if (q4.getQnt() > 0) {
-													listaCores.get(i).setProcessoEmAndamento(q4.removerDaFila());
+													Processo novoProcesso = q4.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+													if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+														listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+														inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+													}
 													if (q4 != null) {
 														if (q4.getQnt() > 0) {
 															if (q4.getHead().getProcesso().getEstado()
@@ -346,7 +362,6 @@ public class MainRoundRobin extends Thread {
 														}
 													}
 
-													inseriCorretamente = true;
 												}
 												auxPosteriorDoUltimo = 0;
 											}
@@ -355,7 +370,7 @@ public class MainRoundRobin extends Thread {
 								}
 							} // FIM WHILE DE INSERIR O PROXIMO DO ANTERIOR
 
-							// SE CHEGOU AQUI � PQ TINHA PROCESSO
+							// SE CHEGOU AQUI ï¿½ PQ TINHA PROCESSO
 							listaCores.get(i).setProntoParaReceberProcesso(false);
 						} else {
 							// NAO TEM MAIS PROCESSO
@@ -420,7 +435,7 @@ public class MainRoundRobin extends Thread {
 		}
 	}
 
-	public static boolean aindaTemCore(ArrayList<Core> cores) {
+	public static boolean aindaTemCore(ArrayList<CoreMerge> cores) {
 		for (int i = 0; i < cores.size(); i++) {
 			if (cores.get(i).getProcessoEmAndamento() != null) {
 				return true; // PQ ELE TA RODANDO
@@ -430,20 +445,20 @@ public class MainRoundRobin extends Thread {
 	}
 	
 	public boolean alocarBlocoParaProcesso(Processo processo){ // ALOCA UM BLOCO PARA O PROCESSO
-		if(Memoria.getSuperBloco().getTamanho() >= processo.getRequisicao()){ // VERIFICA SE O SUPERBLOCO TEM ESPAÇO PARA SER DIVIDIDO PARA ESTE PROCESSO
-			Bloco novoBloco = Memoria.splitSuperBloco(processo.getRequisicao()); // SE SIM GERA O NOVO BLOCO E REALIZA O SPLIT
+		if(MemoriaMerge.getSuperBloco().getTamanho() >= processo.getRequisicao()){ // VERIFICA SE O SUPERBLOCO TEM ESPAÃ‡O PARA SER DIVIDIDO PARA ESTE PROCESSO
+			Bloco novoBloco = MemoriaMerge.splitSuperBloco(processo.getRequisicao()); // SE SIM GERA O NOVO BLOCO E REALIZA O SPLIT
 			novoBloco.alocarProcesso(processo); // ALOCA O PROCESSO NO NOVO BLOCO CRIADO
 			return true; // RETORNA VERDADEIRO PQ ALOCOU UM BLOCO COM SUCESSO
 		}	
-		return false; // RETORNA FALSE POIS A MEMORIA É INSUFICIENTE
+		return false; // RETORNA FALSE POIS A MEMORIA Ã‰ INSUFICIENTE
 	}
 	
 	public boolean desalocarBlocoDoProcesso(Processo processo){ // DESALOCA O PROCESSO DO BLOCO
-		if(Memoria.getSuperBloco().getTamanho() < Memoria.MEMORIA_TOTAL){ // VERIFICA SE O SUPERBLOCO JA ESTA NO TAMANHO MAXIMO (PREVENCAO DE ERROS)
-			for(Bloco bloco : Memoria.getListaDeBlocos()){ // PERCORRE OS BLOCOS DA LISTA DE BLOCOS
+		if(MemoriaMerge.getSuperBloco().getTamanho() < MemoriaMerge.getMemoriaTotal()){ // VERIFICA SE O SUPERBLOCO JA ESTA NO TAMANHO MAXIMO (PREVENCAO DE ERROS)
+			for(Bloco bloco : MemoriaMerge.getListaDeBlocos()){ // PERCORRE OS BLOCOS DA LISTA DE BLOCOS
 				if(bloco.getTamanho() == processo.getRequisicao()){ // VERIFICA SE ELE TEM O TAMANHO DO PROCESSO
-					if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO ALOCADO É REALMENTE O PROCESSO QUE IRÁ SER DESALOCADO
-						Memoria.mergeSuperBloco(bloco); // REALIZA O MERGE COM O SUPERBLOCO
+					if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO ALOCADO Ã‰ REALMENTE O PROCESSO QUE IRÃ� SER DESALOCADO
+						MemoriaMerge.mergeSuperBloco(bloco); // REALIZA O MERGE COM O SUPERBLOCO
 						return true; // RETORNA VERDADEIRO PQ DEU CERTO
 					}
 				}

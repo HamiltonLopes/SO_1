@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import EscalonamentoQuickFit.Interface;
+import EscalonamentoQuickFit.InterfaceInicialQF;
 
 public class Comeco extends JFrame {
 
@@ -40,7 +40,7 @@ public class Comeco extends JFrame {
 		btnRoundRobin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				fechar();
+				callQF();
 			}
 		});
 		btnRoundRobin.setBounds(211, 138, 134, 23);
@@ -64,9 +64,9 @@ public class Comeco extends JFrame {
 		
 	}
 	
-	public void fechar(){
+	public void callQF(){
 		this.setVisible(false);
-		Interface inter = new Interface();
+		InterfaceInicialQF inter = new InterfaceInicialQF();
 		inter.setVisible(true);
 	}
 

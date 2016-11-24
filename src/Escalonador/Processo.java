@@ -7,6 +7,8 @@ import EscalonamentoQuickFit.QuickFit;
 
 public class Processo implements Comparable<Processo> {
 	private static int idProcesso;
+	public static int VALOR_MINIMO = 32; // VALOR MINIMO DE UM BLOCO EM BYTES
+	public static int VALOR_MAXIMO = 1024; // VALOR MAXIMO DE UM BLOCO EM BYTES
 	public int id;
 	public int tempoDeExecucao; //TEMPO RESTANTE
 	public int tempoTotal;
@@ -34,7 +36,7 @@ public class Processo implements Comparable<Processo> {
 		this.executando = executando;
 		this.terminado = terminado;
 		// --------------------- GERA UM NUMERO ALEATORIO DE 2^5 À 2^10 32 BYTES ATÉ 1024 BYTES
-		this.requisicao = ((int) Math.pow(2, ((int) (Math.log(QuickFit.VALOR_MINIMO)/Math.log(2)) + new Random().nextInt((int) (((Math.log(QuickFit.VALOR_MAXIMO)/Math.log(2))+1)-(Math.log(QuickFit.VALOR_MINIMO)/Math.log(2))))))); 
+		this.requisicao = ((int) Math.pow(2, ((int) (Math.log(VALOR_MINIMO)/Math.log(2)) + new Random().nextInt((int) (((Math.log(VALOR_MAXIMO)/Math.log(2))+1)-(Math.log(VALOR_MINIMO)/Math.log(2))))))); 
 	}
 	
 	
