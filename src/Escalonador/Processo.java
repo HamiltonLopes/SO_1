@@ -78,7 +78,7 @@ public class Processo implements Comparable<Processo> {
 	}
 	public String toString(){
 		//AGORA MOSTRA A QUANTIDADE DE BYTES
-		String retorno = "\n ID = " + id + "\n ESTADO = " + estado + "\n TEMPO = " + tempoTotal +"\n TEMPO RESTANTE =" + tempoDeExecucao +"\n PRIORIDADE = " + prioridade + "\n QUANTUM =  " + quantum+"\nBYTES = "+requisicao ;
+		String retorno = "\n ID = " + id + "\n ESTADO = " + estado + "\n TEMPO = " + tempoTotal +"\n TEMPO RESTANTE =" + tempoDeExecucao +"\n PRIORIDADE = " + prioridade + "\n QUANTUM =  " + quantum+"\n BYTES = "+requisicao ;
 		return retorno;
 	}
 	

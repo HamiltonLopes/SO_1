@@ -232,6 +232,7 @@ public class MainRoundRobin extends Thread {
 								textAreaTerminados.setBackground(listaCores.get(i).getProcessoEmAndamento().terminado);
 								textAreaTerminados.setText(listaCores.get(i).getProcessoEmAndamento().toString());
 								InterfaceRR.panelTerminados.add(textAreaTerminados);
+								System.out.println("Passei aqui pq n deu certo eu n sei");
 							} else {
 								voltarParaFila(listaCores.get(i).getProcessoEmAndamento()); // SE.NAO, VOLTA.PRAS.FILAS
 								
@@ -448,6 +449,8 @@ public class MainRoundRobin extends Thread {
 		if(MemoriaMerge.getSuperBloco().getTamanho() >= processo.getRequisicao()){ // VERIFICA SE O SUPERBLOCO TEM ESPAÃ‡O PARA SER DIVIDIDO PARA ESTE PROCESSO
 			Bloco novoBloco = MemoriaMerge.splitSuperBloco(processo.getRequisicao()); // SE SIM GERA O NOVO BLOCO E REALIZA O SPLIT
 			novoBloco.alocarProcesso(processo); // ALOCA O PROCESSO NO NOVO BLOCO CRIADO
+			System.out.println("DEBUG:");
+			for(Bloco b : MemoriaMerge.getListaDeBlocos()) System.out.println(b); // DEBUG
 			return true; // RETORNA VERDADEIRO PQ ALOCOU UM BLOCO COM SUCESSO
 		}	
 		return false; // RETORNA FALSE POIS A MEMORIA Ã‰ INSUFICIENTE
@@ -459,6 +462,8 @@ public class MainRoundRobin extends Thread {
 				if(bloco.getTamanho() == processo.getRequisicao()){ // VERIFICA SE ELE TEM O TAMANHO DO PROCESSO
 					if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO ALOCADO Ã‰ REALMENTE O PROCESSO QUE IRÃ� SER DESALOCADO
 						MemoriaMerge.mergeSuperBloco(bloco); // REALIZA O MERGE COM O SUPERBLOCO
+						System.out.println("DEBUG:");
+						for(Bloco b : MemoriaMerge.getListaDeBlocos()) System.out.println(b); // DEBUG
 						return true; // RETORNA VERDADEIRO PQ DEU CERTO
 					}
 				}

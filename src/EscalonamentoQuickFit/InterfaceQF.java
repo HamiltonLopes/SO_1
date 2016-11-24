@@ -53,7 +53,7 @@ public class InterfaceQF extends JFrame {
 		panel.add(textArea_4);
 
 		panel.setBackground(new Color(0, 153, 153));
-		panel.setBounds(0, 0, 889, 718);
+		panel.setBounds(0, 0, 889, 780);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 

@@ -30,7 +30,8 @@ public class InterfaceRR extends JFrame {
 	static JTextArea textArea_4 = new JTextArea();
 	static JPanel panelTerminados = new JPanel();
 	static JScrollPane scrollListaBlocos = new JScrollPane(); // CRIA O SCROLL
-	static JPanel panelListadeLista = new JPanel(); // CRIA O PANEL
+	static JPanel panelListadeBlocos = new JPanel(); // CRIA O PANEL
+	static JPanel panel = new JPanel();
 
 	public InterfaceRR(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<CoreMerge> cores, ArrayList<Processo> terminados) {
 		setSize(889, 783);
@@ -40,7 +41,6 @@ public class InterfaceRR extends JFrame {
 		setTitle("Round Robin");
 		getContentPane().setLayout(null);
 
-		JPanel panel = new JPanel();
 		panel.setForeground(new Color(153, 153, 204));
 		textArea_1.setBounds(38, 245, 130, 126);
 		textArea_2.setBounds(194, 245, 130, 126);
@@ -72,9 +72,9 @@ public class InterfaceRR extends JFrame {
 		 
 		panel.add(scrollListaBlocos); // ADICIONA O SCROLL NO PANEL PRINCIPAL
 		scrollListaBlocos.setBounds(28, 586, 788, 120); // POE O TAMANHO DO SCROLL
-		panelListadeLista.setBounds(0, 0, 10, 10); // POE O TAMANHO DO PANEL
-		scrollListaBlocos.setViewportView(panelListadeLista); // ADICIONA O PANEL COMO VIEWPORT DO SCROLL
-		panelListadeLista.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5)); // ADICIONA O LAYOUT HORIZONTAL AO PANEL (PARA EXIBIR AS LISTAS UMA DO LADO DA OUTRA)
+		panelListadeBlocos.setBounds(0, 0, 10, 10); // POE O TAMANHO DO PANEL
+		scrollListaBlocos.setViewportView(panelListadeBlocos); // ADICIONA O PANEL COMO VIEWPORT DO SCROLL
+		panelListadeBlocos.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5)); // ADICIONA O LAYOUT HORIZONTAL AO PANEL (PARA EXIBIR AS LISTAS UMA DO LADO DA OUTRA)
 		
 
 		JButton btnAdicionarProcesso = new JButton("Adicionar Processo");
@@ -247,14 +247,14 @@ public class InterfaceRR extends JFrame {
 		// frame.
 	}
 	public static void reiniciarScrollTopLista(){ // MERODO PARA REINICIAR O PANEL DO SCROLL DE LSITA TOP ( REFATORA AS LISTAS)
-		int ncomp = panelListadeLista.getComponentCount(); // PEGA O NUMERO DE COMPONENTES (LISTAS)
+		int ncomp = panelListadeBlocos.getComponentCount(); // PEGA O NUMERO DE COMPONENTES (LISTAS)
 		for (int i = 0; i < ncomp; i++ ){ // PERCORRE UM FOR NCOMP VEZES
-			panelListadeLista.remove(panelListadeLista.getComponent(0)); // REMOVE TODOS OS COMPONENTES DO PANEL DO SCROLL
+			panelListadeBlocos.remove(panelListadeBlocos.getComponent(0)); // REMOVE TODOS OS COMPONENTES DO PANEL DO SCROLL
 		}
 	}
 	
 	public static void repaintPanelTopLista(){ // REPINTA O PANEL DO SCROLL DAS LISTAS
-		panelListadeLista.repaint();
+		panelListadeBlocos.repaint();
 	}
 	
 }
