@@ -1,4 +1,4 @@
-package EscalonamentoQuickFit;
+package Escalonador;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import EscalonamentoQuickFit.Interface;
 
 public class Comeco extends JFrame {
 

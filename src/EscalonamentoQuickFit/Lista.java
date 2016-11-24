@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import Escalonador.Bloco;
+
 
 public class Lista { // LISTA TOP ( SE A QUANTIDADE DE BYTES FOR 999 INDICA FILA RESTO )
 
@@ -38,7 +40,7 @@ public class Lista { // LISTA TOP ( SE A QUANTIDADE DE BYTES FOR 999 INDICA FILA
 		JSeparator sep2 = new JSeparator(); // CRIA UM SEPARADOR, PARA ADICIONAR ENTRE O TITULO E O PROXIMO BLOCO
 	    sep2.setMaximumSize(new Dimension((int) sep2.getMaximumSize().getWidth(), 50)); // SETA O TAMANHO DO SEPARADOR
 	    this.panelListaTop.add(sep2); // ADICIONA O SEPARADOR NO PANEL DA LISTA
-	    InterfaceRR.panelListadeLista.add(scrollListaTop); // ADICIONA O SCROLL DA LISTA NO PANEL VIEWPORT DO SCROLL DA LISTA DE LISTAS
+	    InterfaceQF.panelListadeLista.add(scrollListaTop); // ADICIONA O SCROLL DA LISTA NO PANEL VIEWPORT DO SCROLL DA LISTA DE LISTAS
 	}
 	
 	public Lista(int e) { // RECEBE UMA QUANTIDADE DE BYTES EM UM INTEIRO
@@ -60,7 +62,7 @@ public class Lista { // LISTA TOP ( SE A QUANTIDADE DE BYTES FOR 999 INDICA FILA
 		JSeparator sep2 = new JSeparator(); // CRIA UM SEPARADOR, PARA ADICIONAR ENTRE O TITULO E O PROXIMO BLOCO
 	    sep2.setMaximumSize(new Dimension((int) sep2.getMaximumSize().getWidth(), 50)); // SETA O TAMANHO DO SEPARADOR
 	    this.panelListaTop.add(sep2); // ADICIONA O SEPARADOR NO PANEL DA LISTA
-	    InterfaceRR.panelListadeLista.add(scrollListaTop); // ADICIONA O SCROLL DA LISTA NO PANEL VIEWPORT DO SCROLL DA LISTA DE LISTAS
+	    InterfaceQF.panelListadeLista.add(scrollListaTop); // ADICIONA O SCROLL DA LISTA NO PANEL VIEWPORT DO SCROLL DA LISTA DE LISTAS
 	}
 
 	public int getBytes() { // RETORNA A QUANTIDADE DE BYTES DOS BLOCOS DESSA LISTA TOP

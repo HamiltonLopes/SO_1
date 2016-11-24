@@ -1,4 +1,4 @@
-package EscalonamentoQuickFit;
+package EscalonamentoMergeFit;
 
 import java.awt.Color;
 
@@ -24,7 +24,7 @@ public class Core extends Thread {
 		
 		textAreaProcessos.setBackground(new Color(153, 255, 102));
 		textAreaProcessos.setEditable(false);
-		InterfaceQF.panelProcessos.add(textAreaProcessos);
+		InterfaceRR.panelProcessos.add(textAreaProcessos);
 		textAreaProcessos.setText(this.toString());			
 	}
 

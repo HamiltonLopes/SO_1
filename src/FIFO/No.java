@@ -1,7 +1,7 @@
 package FIFO;
 
+import Escalonador.Processo;
 import EscalonamentoQuickFit.Core;
-import EscalonamentoQuickFit.Processo;
 
 public class No {
 

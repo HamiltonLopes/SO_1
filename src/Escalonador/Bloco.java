@@ -1,4 +1,4 @@
-package EscalonamentoQuickFit;
+package Escalonador;
 
 import java.awt.Color;
 

@@ -1,4 +1,4 @@
-package EscalonamentoQuickFit;
+package EscalonamentoMergeFit;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -15,20 +15,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
+import Escalonador.Processo;
 import FIFO.Fila;
 
 public class InterfaceRR extends JFrame {
-	private int nProcessos = 4;
-	private JPanel contentPane;
+//	private int nProcessos = 4;
+//	private JPanel contentPane;
 	JFrame frame;
-	static JPanel panelProcessos = new JPanel();
+	public static JPanel panelProcessos = new JPanel();
 
 	static JTextArea textArea_1 = new JTextArea();
 	static JTextArea textArea_2 = new JTextArea();
 	static JTextArea textArea_3 = new JTextArea();
 	static JTextArea textArea_4 = new JTextArea();
 	static JPanel panelTerminados = new JPanel();
-	static JScrollPane scrollListaDeLista = new JScrollPane(); // CRIA O SCROLL
+	static JScrollPane scrollListaBlocos = new JScrollPane(); // CRIA O SCROLL
 	static JPanel panelListadeLista = new JPanel(); // CRIA O PANEL
 
 	public InterfaceRR(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<Core> cores, ArrayList<Processo> terminados) {
@@ -69,10 +70,10 @@ public class InterfaceRR extends JFrame {
 		/*		 MÉTODO DE MOSTRAR AS LISTAS		*/
 		// ------------------------------------- CRIANDO O PANEL E SCROLL DA LISTA DE LISTAS ---------------------------
 		 
-		panel.add(scrollListaDeLista); // ADICIONA O SCROLL NO PANEL PRINCIPAL
-		scrollListaDeLista.setBounds(28, 586, 788, 120); // POE O TAMANHO DO SCROLL
+		panel.add(scrollListaBlocos); // ADICIONA O SCROLL NO PANEL PRINCIPAL
+		scrollListaBlocos.setBounds(28, 586, 788, 120); // POE O TAMANHO DO SCROLL
 		panelListadeLista.setBounds(0, 0, 10, 10); // POE O TAMANHO DO PANEL
-		scrollListaDeLista.setViewportView(panelListadeLista); // ADICIONA O PANEL COMO VIEWPORT DO SCROLL
+		scrollListaBlocos.setViewportView(panelListadeLista); // ADICIONA O PANEL COMO VIEWPORT DO SCROLL
 		panelListadeLista.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5)); // ADICIONA O LAYOUT HORIZONTAL AO PANEL (PARA EXIBIR AS LISTAS UMA DO LADO DA OUTRA)
 		
 
@@ -80,8 +81,8 @@ public class InterfaceRR extends JFrame {
 		btnAdicionarProcesso.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				QuickFit.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
-				QuickFit.attFilas();
+				MainRoundRobin.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
+				MainRoundRobin.attFilas();
 //				
 //				
 //				
@@ -152,7 +153,7 @@ public class InterfaceRR extends JFrame {
 		btnTerminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				QuickFit.terminar();
+				MainRoundRobin.terminar();
 			}
 		});
 		btnTerminar.setBounds(727, 504, 89, 23);
@@ -235,7 +236,7 @@ public class InterfaceRR extends JFrame {
 		txtpnProcessoAdicionado.setBounds(739, 436, 90, 36);
 		panel.add(txtpnProcessoAdicionado);
 		
-		JLabel lblListasTop = new JLabel("Listas TOP"); // LABEL QUE INDICA QUE O CAMPO ABAIXO SÃO AS LISTAS TOPS
+		JLabel lblListasTop = new JLabel("Lista de blocos"); // LABEL QUE INDICA QUE O CAMPO ABAIXO SÃO OS BLOCOS
 		lblListasTop.setForeground(new Color(153, 255, 204)); // CONFIGURAÇÃO DE COR DE FONTE
 		lblListasTop.setFont(new Font("Dialog", Font.BOLD, 11)); // CONFIGURAÇÃO DE FONTE
 		lblListasTop.setBounds(28, 572, 157, 14); // CONFIGURAÇÃO DE POSIÇÃO

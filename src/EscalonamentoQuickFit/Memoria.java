@@ -2,6 +2,8 @@ package EscalonamentoQuickFit;
 
 import java.util.ArrayList;
 
+import Escalonador.Bloco;
+
 
 
 public class Memoria {

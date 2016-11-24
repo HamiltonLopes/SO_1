@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
+import Escalonador.Bloco;
+import Escalonador.Processo;
 import FIFO.Fila;
 
 public class QuickFit extends Thread {
@@ -129,15 +131,15 @@ public class QuickFit extends Thread {
 		if (q != null) {
 			if (q.getQnt() > 0) {
 				if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_1.setBackground(q.getHead().getProcesso().pronto);
+					InterfaceQF.textArea_1.setBackground(q.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_1.setBackground(q.getHead().getProcesso().esperando);
+					InterfaceQF.textArea_1.setBackground(q.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_1.setText(q.getHead().getProcesso().toString());
+				InterfaceQF.textArea_1.setText(q.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_1.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_1.setBackground(new Color(204, 255, 204));
+				InterfaceQF.textArea_1.setText("\n    FILA\n    VAZIA");
+				InterfaceQF.textArea_1.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -145,30 +147,30 @@ public class QuickFit extends Thread {
 		if (q2 != null) {
 			if (q2.getQnt() > 0) {
 				if (q2.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_2.setBackground(q2.getHead().getProcesso().pronto);
+					InterfaceQF.textArea_2.setBackground(q2.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_2.setBackground(q2.getHead().getProcesso().esperando);
+					InterfaceQF.textArea_2.setBackground(q2.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_2.setText(q2.getHead().getProcesso().toString());
+				InterfaceQF.textArea_2.setText(q2.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_2.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_2.setBackground(new Color(204, 255, 204));
+				InterfaceQF.textArea_2.setText("\n    FILA\n    VAZIA");
+				InterfaceQF.textArea_2.setBackground(new Color(204, 255, 204));
 			}
 		}
 
 		if (q3 != null) {
 			if (q3.getQnt() > 0) {
 				if (q3.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_3.setBackground(q3.getHead().getProcesso().pronto);
+					InterfaceQF.textArea_3.setBackground(q3.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_3.setBackground(q3.getHead().getProcesso().esperando);
+					InterfaceQF.textArea_3.setBackground(q3.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_3.setText(q3.getHead().getProcesso().toString());
+				InterfaceQF.textArea_3.setText(q3.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_3.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_3.setBackground(new Color(204, 255, 204));
+				InterfaceQF.textArea_3.setText("\n    FILA\n    VAZIA");
+				InterfaceQF.textArea_3.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -176,15 +178,15 @@ public class QuickFit extends Thread {
 		if (q4 != null) {
 			if (q4.getQnt() > 0) {
 				if (q4.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_4.setBackground(q4.getHead().getProcesso().pronto);
+					InterfaceQF.textArea_4.setBackground(q4.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_4.setBackground(q4.getHead().getProcesso().esperando);
+					InterfaceQF.textArea_4.setBackground(q4.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_4.setText(q4.getHead().getProcesso().toString());
+				InterfaceQF.textArea_4.setText(q4.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_4.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_4.setBackground(new Color(204, 255, 204));
+				InterfaceQF.textArea_4.setText("\n    FILA\n    VAZIA");
+				InterfaceQF.textArea_4.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -209,7 +211,7 @@ public class QuickFit extends Thread {
 		EventQueue.invokeLater(new Runnable() { // CHAMA A TELA DO RR
 			public void run() {
 				try {
-					InterfaceRR frame = new InterfaceRR(q, q2, q3, q4, listaCores, listaTerminados);
+					InterfaceQF frame = new InterfaceQF(q, q2, q3, q4, listaCores, listaTerminados);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -239,7 +241,7 @@ public class QuickFit extends Thread {
 								JTextArea textAreaTerminados = new JTextArea(3, 16);
 								textAreaTerminados.setBackground(listaCores.get(i).getProcessoEmAndamento().terminado);
 								textAreaTerminados.setText(listaCores.get(i).getProcessoEmAndamento().toString());
-								InterfaceRR.panelTerminados.add(textAreaTerminados);
+								InterfaceQF.panelTerminados.add(textAreaTerminados);
 							} else {
 								voltarParaFila(listaCores.get(i).getProcessoEmAndamento()); // SE.NAO, VOLTA.PRAS.FILAS
 								
@@ -265,16 +267,16 @@ public class QuickFit extends Thread {
 										if (q != null) {
 											if (q.getQnt() > 0) {
 												if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-													InterfaceRR.textArea_1
+													InterfaceQF.textArea_1
 													.setBackground(q.getHead().getProcesso().pronto);
 												} else {
-													InterfaceRR.textArea_1
+													InterfaceQF.textArea_1
 													.setBackground(q.getHead().getProcesso().esperando);
 												}
-												InterfaceRR.textArea_1.setText(q.getHead().getProcesso().toString());
+												InterfaceQF.textArea_1.setText(q.getHead().getProcesso().toString());
 											} else {
-												InterfaceRR.textArea_1.setText("\n    FILA\n    VAZIA");
-												InterfaceRR.textArea_1.setBackground(new Color(204, 255, 204));
+												InterfaceQF.textArea_1.setText("\n    FILA\n    VAZIA");
+												InterfaceQF.textArea_1.setBackground(new Color(204, 255, 204));
 
 											}
 										}
@@ -294,18 +296,18 @@ public class QuickFit extends Thread {
 												if (q2.getQnt() > 0) {
 													if (q2.getHead().getProcesso().getEstado()
 															.equalsIgnoreCase("Pronto")) {
-														InterfaceRR.textArea_2
+														InterfaceQF.textArea_2
 														.setBackground(q2.getHead().getProcesso().pronto);
 													} else {
-														InterfaceRR.textArea_2
+														InterfaceQF.textArea_2
 														.setBackground(q2.getHead().getProcesso().esperando);
 													}
-													InterfaceRR.textArea_2
+													InterfaceQF.textArea_2
 													.setText(q2.getHead().getProcesso().toString());
 
 												} else {
-													InterfaceRR.textArea_2.setText("\n    FILA\n    VAZIA");
-													InterfaceRR.textArea_2.setBackground(new Color(204, 255, 204));
+													InterfaceQF.textArea_2.setText("\n    FILA\n    VAZIA");
+													InterfaceQF.textArea_2.setBackground(new Color(204, 255, 204));
 
 												}
 											}
@@ -325,18 +327,18 @@ public class QuickFit extends Thread {
 													if (q3.getQnt() > 0) {
 														if (q3.getHead().getProcesso().getEstado()
 																.equalsIgnoreCase("Pronto")) {
-															InterfaceRR.textArea_3
+															InterfaceQF.textArea_3
 															.setBackground(q3.getHead().getProcesso().pronto);
 														} else {
-															InterfaceRR.textArea_3.setBackground(
+															InterfaceQF.textArea_3.setBackground(
 																	q3.getHead().getProcesso().esperando);
 														}
-														InterfaceRR.textArea_3
+														InterfaceQF.textArea_3
 														.setText(q3.getHead().getProcesso().toString());
 
 													} else {
-														InterfaceRR.textArea_3.setText("\n    FILA\n    VAZIA");
-														InterfaceRR.textArea_3.setBackground(new Color(204, 255, 204));
+														InterfaceQF.textArea_3.setText("\n    FILA\n    VAZIA");
+														InterfaceQF.textArea_3.setBackground(new Color(204, 255, 204));
 
 													}
 												}
@@ -356,18 +358,18 @@ public class QuickFit extends Thread {
 														if (q4.getQnt() > 0) {
 															if (q4.getHead().getProcesso().getEstado()
 																	.equalsIgnoreCase("Pronto")) {
-																InterfaceRR.textArea_4.setBackground(
+																InterfaceQF.textArea_4.setBackground(
 																		q4.getHead().getProcesso().pronto);
 															} else {
-																InterfaceRR.textArea_4.setBackground(
+																InterfaceQF.textArea_4.setBackground(
 																		q4.getHead().getProcesso().esperando);
 															}
-															InterfaceRR.textArea_4
+															InterfaceQF.textArea_4
 															.setText(q4.getHead().getProcesso().toString());
 
 														} else {
-															InterfaceRR.textArea_4.setText("\n    FILA\n    VAZIA");
-															InterfaceRR.textArea_4
+															InterfaceQF.textArea_4.setText("\n    FILA\n    VAZIA");
+															InterfaceQF.textArea_4
 															.setBackground(new Color(204, 255, 204));
 
 														}
@@ -540,14 +542,14 @@ public class QuickFit extends Thread {
 	public void montarListaTop(ArrayList<Estatistica> estatisticas){ // RECEBE UMA LISTA DE ESTATISTICAS COMO PARAMETRO
 		// ======================== FAZER UM METODO QUE EXCLUA AS ANTIGAS LISTAS TOPS
 		// PQ TA BUGANDO A INTERFACEEE ====================
-		InterfaceRR.reiniciarScrollTopLista(); // APAGA A TOP LISTA ANTIGA PARA GERAR A NOVA
+		InterfaceQF.reiniciarScrollTopLista(); // APAGA A TOP LISTA ANTIGA PARA GERAR A NOVA
 		System.out.println("Debug estatisticas = "+estatisticas); // DEBUG : IMPRIME LISTAS DE ESTATISTICA
 		ArrayList<Lista> listaDeLista = new ArrayList<Lista>(); // LISTA AUXILIAR PARA ARMAZENAR AS LISTAS TOPS
 		for(int i = 0; i < NUM_LISTA_TOP; i++){ // PERCORRE UM FOR O NUMERO DE LISTAS TOPS 
 			Estatistica maior = maiorEstatistica(estatisticas); // PEGA O TOP DA LISTA 
 			listaDeLista.add(new Lista(maior)); // CRIA UMA LISTA TOP
 			maior.zerarHit(); // ZERA O HIT DESSE TOP, PARA DA PROXIMA VEZ PEGAR O TOP 2 E ASSIM SUCESSIVAMENTE
-			InterfaceRR.repaintPanelTopLista(); // REPINTA O PANEL DO SCROLL
+			InterfaceQF.repaintPanelTopLista(); // REPINTA O PANEL DO SCROLL
 		}
 		listaDeLista.add(new Lista(999)); // CRIA A LISTA DE RESTO | CODIGO 999 = RESTO
 		for(int i = 0; i < Memoria.getListaInicialDeBlocos().size(); i++){ // PERCORRE A LISTA INICIAL DE BLOCOS
@@ -558,7 +560,7 @@ public class QuickFit extends Thread {
 					k = listaDeLista.size(); // SE ADICIONA O BLOCO ELE PULA O RESTO DO FOR
 				}
 			}
-			InterfaceRR.repaintPanelTopLista(); // REPINTA O PANEL DO SCROLL
+			InterfaceQF.repaintPanelTopLista(); // REPINTA O PANEL DO SCROLL
 		}
 		
 		

@@ -1,23 +1,25 @@
-package EscalonamentoQuickFit;
+package Escalonador;
 
 import java.awt.Color;
 import java.util.Random;
 
+import EscalonamentoQuickFit.QuickFit;
+
 public class Processo implements Comparable<Processo> {
 	private static int idProcesso;
-	int id;
-	int tempoDeExecucao; //TEMPO RESTANTE
-	int tempoTotal;
-	int prioridade;
-	String estado;
-	int quantum;
-	int deadline;
+	public int id;
+	public int tempoDeExecucao; //TEMPO RESTANTE
+	public int tempoTotal;
+	public int prioridade;
+	public String estado;
+	public int quantum;
+	public int deadline;
 	private int requisicao; // QUANTIDADE DE BYTES NECESSARIO PARA ALOCAR O PROCESSO NA MEMORIA
 	
-	Color esperando;
-	Color pronto;
-	Color terminado;
-	Color executando;
+	public Color esperando;
+	public Color pronto;
+	public Color terminado;
+	public Color executando;
 	
 	//public Processo(){} //RETIRANDO CONSTRUTOR DESNECESSARIO
 	public Processo(int tempoDeExecucao, int deadline, String estado){}
