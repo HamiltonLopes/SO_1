@@ -27,6 +27,7 @@ public class Bloco {
 		if(this.processoDoBloco == null){ // SE O PROCESSO FOR NULO, ENTRA
 			processoDoBloco = processoASerAlocado; // ALOCA O PROCESSO NO BLOCO
 			this.txtAreaBlocos.setText(toString()); // ATUALIZA AS INFO DO BLOCO QUANDO ALOCA O PROCESSO
+			this.txtAreaBlocos.setBackground(new Color(255, 99, 71)); // POE COR VERMELHA NO BLOCO
 			return true; // RETORNA TRUE PQ DEU CERTO
 		}
 		return false; // SE JA TIVER PROCESSO NO BLOCO ELE RETORNA FALSO, PQ ANTES TEM Q DESALOCAR
@@ -40,6 +41,7 @@ public class Bloco {
 		if(this.processoDoBloco != null){ // SE EXISTIR UM PROCESSO NO BLOCO, ENTRA
 			processoDoBloco = null; // COLOCA O PROCESSO PARA NULO (LIBERA)
 			this.txtAreaBlocos.setText(toString()); // ATUALIZA AS INFO DO BLOCO QUANDO DESALOCA O PROCESSO
+			this.txtAreaBlocos.setBackground(new Color(102, 204, 102)); // RETORNA A COR VERDE AO BLOCO
 			return true; // RETORNA TRUE PQ DEU TD CERTO
 		}
 		return false; // SE NÃO TIVER PROCESSO NO BLOCO RETORNA FALSO, PQ N TEM PROCESSO PARA DESALOCAR
