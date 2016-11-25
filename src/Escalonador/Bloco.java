@@ -19,7 +19,7 @@ public class Bloco {
 		this.txtAreaBlocos.setText(toString()); // ADICIONA O toString() DO BLOCO NO TEXTAREA PARA EXIBIR NA TELA AS INFORMAÇÕES DO BLOCO
 	}
 	
-	public JTextArea getJTextArea(){
+	public JTextArea getJTextArea(){ // RETORNA O JTEXTAREA
 		return txtAreaBlocos;
 	}
 	
