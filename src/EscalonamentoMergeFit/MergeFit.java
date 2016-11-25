@@ -10,7 +10,7 @@ import Escalonador.Bloco;
 import Escalonador.Processo;
 import FIFO.Fila;
 
-public class MainRoundRobin extends Thread {
+public class MergeFit extends Thread {
 
 	static ArrayList<Processo> listaTerminados = new ArrayList<Processo>();
 	static ArrayList<CoreMerge> listaCores = new ArrayList<CoreMerge>();
@@ -127,15 +127,15 @@ public class MainRoundRobin extends Thread {
 		if (q != null) {
 			if (q.getQnt() > 0) {
 				if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_1.setBackground(q.getHead().getProcesso().pronto);
+					InterfaceMF.textArea_1.setBackground(q.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_1.setBackground(q.getHead().getProcesso().esperando);
+					InterfaceMF.textArea_1.setBackground(q.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_1.setText(q.getHead().getProcesso().toString());
+				InterfaceMF.textArea_1.setText(q.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_1.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_1.setBackground(new Color(204, 255, 204));
+				InterfaceMF.textArea_1.setText("\n    FILA\n    VAZIA");
+				InterfaceMF.textArea_1.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -143,30 +143,30 @@ public class MainRoundRobin extends Thread {
 		if (q2 != null) {
 			if (q2.getQnt() > 0) {
 				if (q2.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_2.setBackground(q2.getHead().getProcesso().pronto);
+					InterfaceMF.textArea_2.setBackground(q2.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_2.setBackground(q2.getHead().getProcesso().esperando);
+					InterfaceMF.textArea_2.setBackground(q2.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_2.setText(q2.getHead().getProcesso().toString());
+				InterfaceMF.textArea_2.setText(q2.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_2.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_2.setBackground(new Color(204, 255, 204));
+				InterfaceMF.textArea_2.setText("\n    FILA\n    VAZIA");
+				InterfaceMF.textArea_2.setBackground(new Color(204, 255, 204));
 			}
 		}
 
 		if (q3 != null) {
 			if (q3.getQnt() > 0) {
 				if (q3.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_3.setBackground(q3.getHead().getProcesso().pronto);
+					InterfaceMF.textArea_3.setBackground(q3.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_3.setBackground(q3.getHead().getProcesso().esperando);
+					InterfaceMF.textArea_3.setBackground(q3.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_3.setText(q3.getHead().getProcesso().toString());
+				InterfaceMF.textArea_3.setText(q3.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_3.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_3.setBackground(new Color(204, 255, 204));
+				InterfaceMF.textArea_3.setText("\n    FILA\n    VAZIA");
+				InterfaceMF.textArea_3.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -174,15 +174,15 @@ public class MainRoundRobin extends Thread {
 		if (q4 != null) {
 			if (q4.getQnt() > 0) {
 				if (q4.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceRR.textArea_4.setBackground(q4.getHead().getProcesso().pronto);
+					InterfaceMF.textArea_4.setBackground(q4.getHead().getProcesso().pronto);
 				} else {
-					InterfaceRR.textArea_4.setBackground(q4.getHead().getProcesso().esperando);
+					InterfaceMF.textArea_4.setBackground(q4.getHead().getProcesso().esperando);
 				}
-				InterfaceRR.textArea_4.setText(q4.getHead().getProcesso().toString());
+				InterfaceMF.textArea_4.setText(q4.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceRR.textArea_4.setText("\n    FILA\n    VAZIA");
-				InterfaceRR.textArea_4.setBackground(new Color(204, 255, 204));
+				InterfaceMF.textArea_4.setText("\n    FILA\n    VAZIA");
+				InterfaceMF.textArea_4.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -207,7 +207,7 @@ public class MainRoundRobin extends Thread {
 		EventQueue.invokeLater(new Runnable() { // CHAMA A TELA DO RR
 			public void run() {
 				try {
-					InterfaceRR frame = new InterfaceRR(q, q2, q3, q4, listaCores, listaTerminados);
+					InterfaceMF frame = new InterfaceMF(q, q2, q3, q4, listaCores, listaTerminados);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -216,6 +216,7 @@ public class MainRoundRobin extends Thread {
 		});
 
 		while (programaON) { // ENQUANTO.TIVER.PROCESSO.OU.ALGO.EXECUTANDO
+//			if(MemoriaMerge.getSuperBloco().getTamanho() == MemoriaMerge.MEMORIA_TOTAL) MemoriaMerge.gambs(); // SE O PROGRAMA ACABOU MOSTRA O SUPERBLOCO
 			if (temProcesso() || aindaTemCore(listaCores)) {//CORE.RODANDO
 
 				for (int i = 0; i < listaCores.size(); i++) {
@@ -231,12 +232,11 @@ public class MainRoundRobin extends Thread {
 								JTextArea textAreaTerminados = new JTextArea(3, 16);
 								textAreaTerminados.setBackground(listaCores.get(i).getProcessoEmAndamento().terminado);
 								textAreaTerminados.setText(listaCores.get(i).getProcessoEmAndamento().toString());
-								InterfaceRR.panelTerminados.add(textAreaTerminados);
-								System.out.println("Passei aqui pq n deu certo eu n sei");
+								InterfaceMF.panelTerminados.add(textAreaTerminados);
 							} else {
 								voltarParaFila(listaCores.get(i).getProcessoEmAndamento()); // SE.NAO, VOLTA.PRAS.FILAS
-								
 							}
+							//fazer ele desalocar so os finalizados
 							
 							//DESALOCAR BLOCO DO PROCESSO
 							desalocarBlocoDoProcesso(listaCores.get(i).getProcessoEmAndamento());
@@ -257,16 +257,16 @@ public class MainRoundRobin extends Thread {
 										if (q != null) {
 											if (q.getQnt() > 0) {
 												if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-													InterfaceRR.textArea_1
+													InterfaceMF.textArea_1
 													.setBackground(q.getHead().getProcesso().pronto);
 												} else {
-													InterfaceRR.textArea_1
+													InterfaceMF.textArea_1
 													.setBackground(q.getHead().getProcesso().esperando);
 												}
-												InterfaceRR.textArea_1.setText(q.getHead().getProcesso().toString());
+												InterfaceMF.textArea_1.setText(q.getHead().getProcesso().toString());
 											} else {
-												InterfaceRR.textArea_1.setText("\n    FILA\n    VAZIA");
-												InterfaceRR.textArea_1.setBackground(new Color(204, 255, 204));
+												InterfaceMF.textArea_1.setText("\n    FILA\n    VAZIA");
+												InterfaceMF.textArea_1.setBackground(new Color(204, 255, 204));
 
 											}
 										}
@@ -286,18 +286,18 @@ public class MainRoundRobin extends Thread {
 												if (q2.getQnt() > 0) {
 													if (q2.getHead().getProcesso().getEstado()
 															.equalsIgnoreCase("Pronto")) {
-														InterfaceRR.textArea_2
+														InterfaceMF.textArea_2
 														.setBackground(q2.getHead().getProcesso().pronto);
 													} else {
-														InterfaceRR.textArea_2
+														InterfaceMF.textArea_2
 														.setBackground(q2.getHead().getProcesso().esperando);
 													}
-													InterfaceRR.textArea_2
+													InterfaceMF.textArea_2
 													.setText(q2.getHead().getProcesso().toString());
 
 												} else {
-													InterfaceRR.textArea_2.setText("\n    FILA\n    VAZIA");
-													InterfaceRR.textArea_2.setBackground(new Color(204, 255, 204));
+													InterfaceMF.textArea_2.setText("\n    FILA\n    VAZIA");
+													InterfaceMF.textArea_2.setBackground(new Color(204, 255, 204));
 
 												}
 											}
@@ -316,18 +316,18 @@ public class MainRoundRobin extends Thread {
 													if (q3.getQnt() > 0) {
 														if (q3.getHead().getProcesso().getEstado()
 																.equalsIgnoreCase("Pronto")) {
-															InterfaceRR.textArea_3
+															InterfaceMF.textArea_3
 															.setBackground(q3.getHead().getProcesso().pronto);
 														} else {
-															InterfaceRR.textArea_3.setBackground(
+															InterfaceMF.textArea_3.setBackground(
 																	q3.getHead().getProcesso().esperando);
 														}
-														InterfaceRR.textArea_3
+														InterfaceMF.textArea_3
 														.setText(q3.getHead().getProcesso().toString());
 
 													} else {
-														InterfaceRR.textArea_3.setText("\n    FILA\n    VAZIA");
-														InterfaceRR.textArea_3.setBackground(new Color(204, 255, 204));
+														InterfaceMF.textArea_3.setText("\n    FILA\n    VAZIA");
+														InterfaceMF.textArea_3.setBackground(new Color(204, 255, 204));
 
 													}
 												}
@@ -346,18 +346,18 @@ public class MainRoundRobin extends Thread {
 														if (q4.getQnt() > 0) {
 															if (q4.getHead().getProcesso().getEstado()
 																	.equalsIgnoreCase("Pronto")) {
-																InterfaceRR.textArea_4.setBackground(
+																InterfaceMF.textArea_4.setBackground(
 																		q4.getHead().getProcesso().pronto);
 															} else {
-																InterfaceRR.textArea_4.setBackground(
+																InterfaceMF.textArea_4.setBackground(
 																		q4.getHead().getProcesso().esperando);
 															}
-															InterfaceRR.textArea_4
+															InterfaceMF.textArea_4
 															.setText(q4.getHead().getProcesso().toString());
 
 														} else {
-															InterfaceRR.textArea_4.setText("\n    FILA\n    VAZIA");
-															InterfaceRR.textArea_4
+															InterfaceMF.textArea_4.setText("\n    FILA\n    VAZIA");
+															InterfaceMF.textArea_4
 															.setBackground(new Color(204, 255, 204));
 
 														}

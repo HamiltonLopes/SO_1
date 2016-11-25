@@ -18,7 +18,7 @@ import javax.swing.JTextPane;
 import Escalonador.Processo;
 import FIFO.Fila;
 
-public class InterfaceRR extends JFrame {
+public class InterfaceMF extends JFrame {
 //	private int nProcessos = 4;
 //	private JPanel contentPane;
 	JFrame frame;
@@ -33,12 +33,12 @@ public class InterfaceRR extends JFrame {
 	static JPanel panelListadeBlocos = new JPanel(); // CRIA O PANEL
 	static JPanel panel = new JPanel();
 
-	public InterfaceRR(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<CoreMerge> cores, ArrayList<Processo> terminados) {
+	public InterfaceMF(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<CoreMerge> cores, ArrayList<Processo> terminados) {
 		setSize(889, 783);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		setTitle("Round Robin");
+		setTitle("MergeFit");
 		getContentPane().setLayout(null);
 
 		panel.setForeground(new Color(153, 153, 204));
@@ -53,7 +53,7 @@ public class InterfaceRR extends JFrame {
 		panel.add(textArea_4);
 
 		panel.setBackground(new Color(0, 153, 153));
-		panel.setBounds(0, 0, 889, 718);
+		panel.setBounds(0, 0, 974, 845);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -81,8 +81,8 @@ public class InterfaceRR extends JFrame {
 		btnAdicionarProcesso.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MainRoundRobin.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
-				MainRoundRobin.attFilas();
+				MergeFit.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
+				MergeFit.attFilas();
 //				
 //				
 //				
@@ -153,7 +153,14 @@ public class InterfaceRR extends JFrame {
 		btnTerminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MainRoundRobin.terminar();
+				MergeFit.terminar();
+//				JTextArea txtAreaBlocos = new JTextArea(4,16);
+//				txtAreaBlocos.setText("Bytes = "+MemoriaMerge.MEMORIA_TOTAL+"\nProcesso = Sem processo\nEstado = Livre");
+//				txtAreaBlocos.setBackground(new Color(102, 204, 102)); /// ADICIONA UMA COR AO TXTAREA DO BLOCO
+//				txtAreaBlocos.setEditable(false); // TIRA O EDITABLE PARA NÃO PODER EDITAR QUANDO ESTIVER EXECUTANDO
+//				panelListadeBlocos = new JPanel();
+//				panelListadeBlocos.add(txtAreaBlocos);
+//				repaint();
 			}
 		});
 		btnTerminar.setBounds(727, 504, 89, 23);
@@ -246,12 +253,12 @@ public class InterfaceRR extends JFrame {
 		// frame.setVisible(true);
 		// frame.
 	}
-	public static void reiniciarScrollTopLista(){ // MERODO PARA REINICIAR O PANEL DO SCROLL DE LSITA TOP ( REFATORA AS LISTAS)
-		int ncomp = panelListadeBlocos.getComponentCount(); // PEGA O NUMERO DE COMPONENTES (LISTAS)
-		for (int i = 0; i < ncomp; i++ ){ // PERCORRE UM FOR NCOMP VEZES
-			panelListadeBlocos.remove(panelListadeBlocos.getComponent(0)); // REMOVE TODOS OS COMPONENTES DO PANEL DO SCROLL
-		}
-	}
+//	public static void reiniciarScrollTopLista(){ // MERODO PARA REINICIAR O PANEL DO SCROLL DE LSITA TOP ( REFATORA AS LISTAS)
+//		int ncomp = panelListadeBlocos.getComponentCount(); // PEGA O NUMERO DE COMPONENTES (LISTAS)
+//		for (int i = 0; i < ncomp; i++ ){ // PERCORRE UM FOR NCOMP VEZES
+//			panelListadeBlocos.remove(panelListadeBlocos.getComponent(0)); // REMOVE TODOS OS COMPONENTES DO PANEL DO SCROLL
+//		}
+//	}
 	
 	public static void repaintPanelTopLista(){ // REPINTA O PANEL DO SCROLL DAS LISTAS
 		panelListadeBlocos.repaint();

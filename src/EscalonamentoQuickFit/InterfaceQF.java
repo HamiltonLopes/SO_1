@@ -37,7 +37,7 @@ public class InterfaceQF extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		setTitle("Round Robin");
+		setTitle("Quick Fit");
 		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();

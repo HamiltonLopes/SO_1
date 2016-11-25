@@ -16,12 +16,12 @@ public class MemoriaMerge extends Memoria{
 			Bloco novoSuperBloco = new Bloco(superBloco.getTamanho()-bytesNewBloco); // CRIA UM NOVO SUPERBLOCO COM O TAMANHO DIVIDIDO
 			Bloco novoBloco = new Bloco(bytesNewBloco); // CRIA O NOVO BLOCO COM O TAMANHO DESEJADO
 			MemoriaMerge.listaDeBlocos.remove(superBloco); // REMOVE O SUPERBLOCO ANTIGO
-			InterfaceRR.panelListadeBlocos.remove(superBloco.getJTextArea()); // TEORICAMENTE REMOVE DA INTERFACE, O SUPERBLOCO ANTIGO
+			InterfaceMF.panelListadeBlocos.remove(superBloco.getJTextArea()); // TEORICAMENTE REMOVE DA INTERFACE, O SUPERBLOCO ANTIGO
 			setSuperBloco(novoSuperBloco); // ATUALIZA O SUPERBLOCO
 			MemoriaMerge.listaDeBlocos.add(novoBloco); // ADICIONA O NOVO BLOCO NA LISTA DE BLOCOS
-			InterfaceRR.panelListadeBlocos.add(novoBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O BLOCO NOVO
+			InterfaceMF.panelListadeBlocos.add(novoBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O BLOCO NOVO
 			MemoriaMerge.listaDeBlocos.add(superBloco); // ADICIONA O SUPERBLOCONOVO
-			InterfaceRR.panelListadeBlocos.add(superBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O SUPERBLOCO NOVO
+			InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O SUPERBLOCO NOVO
 			return novoBloco; // RETORNA ESSE NOVO BLOCO
 		} 
 		return null; // RETORNA NULL CASO O NAO TENHA MEMORIA SUFICIENTE
@@ -31,19 +31,25 @@ public class MemoriaMerge extends Memoria{
 		if(superBloco.getTamanho() < MEMORIA_TOTAL){ // VERIFICA SE O SUPERBLOCO NAO ESTÃ� COM O TAMANHO MAXIMO
 			Bloco novoSuperBloco = new Bloco(superBloco.getTamanho()+blocoExcluido.getTamanho()); // SE NAO FOR O TAMANHO MAXIMO, CRIA O NOVO SUPERBLOCO COM A SOMA DO ANTIGO E O SUPERBLOCO ATUAL
 			MemoriaMerge.listaDeBlocos.remove(superBloco); // REMOVE O SUPERBLOCO ANTIGO
-			InterfaceRR.panelListadeBlocos.remove(superBloco.getJTextArea()); // TEORICAMENTE REMOVE DA INTERFACE O SUPER BLOCO ANTIGO
+			InterfaceMF.panelListadeBlocos.remove(superBloco.getJTextArea()); // TEORICAMENTE REMOVE DA INTERFACE O SUPER BLOCO ANTIGO
 			setSuperBloco(novoSuperBloco); // ATUALIZA O NOVO SUPERBLOCO
 			blocoExcluido.desalocarProcesso(); // DESALOCA O PROCESSO DO BLOCO
 			MemoriaMerge.listaDeBlocos.remove(blocoExcluido); // REMOVE O BLOCO EXCLUIDO DA LISTA DE BLOCOS
-			InterfaceRR.panelListadeBlocos.remove(blocoExcluido.getJTextArea()); // TEORICAMENTE REMOVE DA INTERFACE O BLOCO EXCLUIDO
+			InterfaceMF.panelListadeBlocos.remove(blocoExcluido.getJTextArea()); // TEORICAMENTE REMOVE DA INTERFACE O BLOCO EXCLUIDO
 			MemoriaMerge.listaDeBlocos.add(superBloco); // ADICIONA O SUPERBLOCONOVO
-			InterfaceRR.panelListadeBlocos.add(superBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O SUPERBLOCO NOVO
-			InterfaceRR.repaintPanelTopLista(); // REPINTA A JANELA DE BLOCOS
+			InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O SUPERBLOCO NOVO
+			InterfaceMF.repaintPanelTopLista(); // REPINTA A JANELA DE BLOCOS
 //			System.out.println("COMPONENTES = "+InterfaceRR.panelListadeBlocos.getComponentCount());
 			return true; // RETORNA VERDADEIRO PQ FEZ O MERGE COM SUCESSO
 		}
 		return false; // RETORNA FALSE SE O BLOCO JA ESTA COM MEMORIA TOTAL
 	}
+	
+//	public static void gambs(){ // CODIGO ALTAMENTE PODEROSO E TRABALHADO
+//		InterfaceMF.reiniciarScrollTopLista(); // REINICIA O PANEL DE BLOCOS 
+//		InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // ADICIONA O SUPERBLOCO
+//		InterfaceMF.repaintPanelTopLista(); // REPINTA O PANEL
+//	}
 	
 	public static ArrayList<Bloco> getListaDeBlocos(){ // RETORNA A LISTA INICIAL DOS BLOCOS
 		return listaDeBlocos;
@@ -52,7 +58,7 @@ public class MemoriaMerge extends Memoria{
 	public static void start() { // STARTA A MEMORIA
 		listaDeBlocos.add(superBloco); // ADICIONA O SUPERBLOCO NA LISTA
 //		new seila().start();
-		InterfaceRR.panelListadeBlocos.add(superBloco.getJTextArea()); // ADICIONA NA INTERFACE O SUPERBLOCO INICIAL
+		InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // ADICIONA NA INTERFACE O SUPERBLOCO INICIAL
 	}
 
 	public static Bloco getSuperBloco() { // RETORNA O SUPERBLOCO

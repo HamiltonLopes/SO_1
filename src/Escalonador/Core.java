@@ -4,8 +4,6 @@ import java.awt.Color;
 
 import javax.swing.JTextArea;
 
-import Escalonador.Processo;
-
 public abstract class Core extends Thread {
 
 	private static int idUniversal = 0;
@@ -28,7 +26,7 @@ public abstract class Core extends Thread {
 		textAreaProcessos.setText(this.toString());			
 	}
 	
-	protected abstract void interAddPanel(); //METODO PARA SER IMPLEMENTADO NAS CLASSES QUE VAO EXTENDER, ONDE SERÁ ALIMENTADO A INTERFACE COM O TEXT AREA DOS PROCESSOS
+	protected abstract void interAddPanel(); //METODO PARA SER IMPLEMENTADO NAS CLASSES QUE VAO EXTENDER, ONDE SERï¿½ ALIMENTADO A INTERFACE COM O TEXT AREA DOS PROCESSOS
 
 	public long getId() {
 		return id;

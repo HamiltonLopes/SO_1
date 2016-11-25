@@ -3,8 +3,6 @@ package Escalonador;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import EscalonamentoMergeFit.InterfaceInicialMF;
 import EscalonamentoQuickFit.InterfaceInicialQF;
 
 public class Comeco extends JFrame {
@@ -20,7 +19,6 @@ public class Comeco extends JFrame {
 	private JPanel contentPane;
 	
 	public Comeco() {
-	
 		
 		getContentPane().setLayout(null);
 		
@@ -36,15 +34,15 @@ public class Comeco extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton btnRoundRobin = new JButton("Quick Fitness"); // BOTAO INICIO
-		btnRoundRobin.addMouseListener(new MouseAdapter() {
+		JButton btnBestFit = new JButton("Best Fit"); // BOTAO INICIO
+		btnBestFit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				callQF();
+//				callQF();
 			}
 		});
-		btnRoundRobin.setBounds(211, 138, 134, 23);
-		panel.add(btnRoundRobin);
+		btnBestFit.setBounds(211, 138, 134, 23);
+		panel.add(btnBestFit);
 		
 //		JButton btnLtg = new JButton("LTG");
 //		btnLtg.addActionListener(new ActionListener() {
@@ -60,6 +58,27 @@ public class Comeco extends JFrame {
 		lblEscalonadorDeProcessos.setBounds(20, 11, 535, 81);
 		lblEscalonadorDeProcessos.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(lblEscalonadorDeProcessos);
+		
+		JButton btnMergeFit = new JButton("Merge Fit");
+		btnMergeFit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				callMF();
+			}
+		});
+		
+		btnMergeFit.setBounds(211, 181, 134, 23);
+		panel.add(btnMergeFit);
+		
+		JButton btnQuickFit = new JButton("Quick Fitness");
+		btnQuickFit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				callQF();
+			}
+		});
+		btnQuickFit.setBounds(211, 225, 134, 23);
+		panel.add(btnQuickFit);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
@@ -67,6 +86,12 @@ public class Comeco extends JFrame {
 	public void callQF(){
 		this.setVisible(false);
 		InterfaceInicialQF inter = new InterfaceInicialQF();
+		inter.setVisible(true);
+	}
+	
+	public void callMF(){
+		this.setVisible(false);
+		InterfaceInicialMF inter = new InterfaceInicialMF();
 		inter.setVisible(true);
 	}
 
