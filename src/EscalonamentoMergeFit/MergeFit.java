@@ -216,7 +216,6 @@ public class MergeFit extends Thread {
 		});
 
 		while (programaON) { // ENQUANTO.TIVER.PROCESSO.OU.ALGO.EXECUTANDO
-//			if(MemoriaMerge.getSuperBloco().getTamanho() == MemoriaMerge.MEMORIA_TOTAL) MemoriaMerge.gambs(); // SE O PROGRAMA ACABOU MOSTRA O SUPERBLOCO
 			if (temProcesso() || aindaTemCore(listaCores)) {//CORE.RODANDO
 
 				for (int i = 0; i < listaCores.size(); i++) {
@@ -233,13 +232,11 @@ public class MergeFit extends Thread {
 								textAreaTerminados.setBackground(listaCores.get(i).getProcessoEmAndamento().terminado);
 								textAreaTerminados.setText(listaCores.get(i).getProcessoEmAndamento().toString());
 								InterfaceMF.panelTerminados.add(textAreaTerminados);
+								//DESALOCAR BLOCO DO PROCESSO
+								desalocarBlocoDoProcesso(listaCores.get(i).getProcessoEmAndamento());
 							} else {
 								voltarParaFila(listaCores.get(i).getProcessoEmAndamento()); // SE.NAO, VOLTA.PRAS.FILAS
 							}
-							//fazer ele desalocar so os finalizados
-							
-							//DESALOCAR BLOCO DO PROCESSO
-							desalocarBlocoDoProcesso(listaCores.get(i).getProcessoEmAndamento());
 						}
 
 						if (temProcesso()) {
@@ -248,11 +245,16 @@ public class MergeFit extends Thread {
 							boolean inseriCorretamente = false;
 							while (!inseriCorretamente) {
 								if (auxPosteriorDoUltimo == 0) {
-									if (q.getQnt() > 0) {
+									if (q.getQnt() > 0) { 
 										Processo novoProcesso = q.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-										if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-											listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+										if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+											listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 											inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+										}else{ // SE NAO TIVER BLOCO ENTRA,
+											if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+												listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+												inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+											}
 										}
 										if (q != null) {
 											if (q.getQnt() > 0) {
@@ -277,11 +279,15 @@ public class MergeFit extends Thread {
 									if (auxPosteriorDoUltimo == 1) {
 										if (q2.getQnt() > 0) {
 											Processo novoProcesso = q2.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-											if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-												listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+											if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+												listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 												inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+											}else{ // SE NAO TIVER BLOCO ENTRA,
+												if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+													listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+													inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+												}
 											}
-
 											if (q2 != null) {
 												if (q2.getQnt() > 0) {
 													if (q2.getHead().getProcesso().getEstado()
@@ -308,9 +314,14 @@ public class MergeFit extends Thread {
 										if (auxPosteriorDoUltimo == 2) {
 											if (q3.getQnt() > 0) {
 												Processo novoProcesso = q3.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-												if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-													listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+												if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+													listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 													inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+												}else{ // SE NAO TIVER BLOCO ENTRA,
+													if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+														listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+														inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+													}
 												}
 												if (q3 != null) {
 													if (q3.getQnt() > 0) {
@@ -338,9 +349,14 @@ public class MergeFit extends Thread {
 											if (auxPosteriorDoUltimo == 3) {
 												if (q4.getQnt() > 0) {
 													Processo novoProcesso = q4.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-													if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-														listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+													if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+														listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 														inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+													}else{ // SE NAO TIVER BLOCO ENTRA,
+														if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+															listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+															inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+														}
 													}
 													if (q4 != null) {
 														if (q4.getQnt() > 0) {
@@ -447,9 +463,9 @@ public class MergeFit extends Thread {
 	
 	public boolean alocarBlocoParaProcesso(Processo processo){ // ALOCA UM BLOCO PARA O PROCESSO
 		if(MemoriaMerge.getSuperBloco().getTamanho() >= processo.getRequisicao()){ // VERIFICA SE O SUPERBLOCO TEM ESPAÃ‡O PARA SER DIVIDIDO PARA ESTE PROCESSO
+			System.out.println("========================== DEBUG SPLIT ============================="); // DEBUG
 			Bloco novoBloco = MemoriaMerge.splitSuperBloco(processo.getRequisicao()); // SE SIM GERA O NOVO BLOCO E REALIZA O SPLIT
 			novoBloco.alocarProcesso(processo); // ALOCA O PROCESSO NO NOVO BLOCO CRIADO
-			System.out.println("DEBUG:");
 			for(Bloco b : MemoriaMerge.getListaDeBlocos()) System.out.println(b); // DEBUG
 			return true; // RETORNA VERDADEIRO PQ ALOCOU UM BLOCO COM SUCESSO
 		}	
@@ -461,8 +477,8 @@ public class MergeFit extends Thread {
 			for(Bloco bloco : MemoriaMerge.getListaDeBlocos()){ // PERCORRE OS BLOCOS DA LISTA DE BLOCOS
 				if(bloco.getTamanho() == processo.getRequisicao()){ // VERIFICA SE ELE TEM O TAMANHO DO PROCESSO
 					if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO ALOCADO Ã‰ REALMENTE O PROCESSO QUE IRÃ� SER DESALOCADO
+						System.out.println("========================== DEBUG MERGE ============================="); // DEBUG
 						MemoriaMerge.mergeSuperBloco(bloco); // REALIZA O MERGE COM O SUPERBLOCO
-						System.out.println("DEBUG:");
 						for(Bloco b : MemoriaMerge.getListaDeBlocos()) System.out.println(b); // DEBUG
 						return true; // RETORNA VERDADEIRO PQ DEU CERTO
 					}
@@ -470,6 +486,17 @@ public class MergeFit extends Thread {
 			}
 		}
 		return false; // RETORNA FALSO CASO JA ESTEJA NO TAMANHO MAXIMO, OU SEJA TEM ALGO ERRADOS
+	}
+	
+	public boolean processoJaTemBloco(Processo processo){
+		for(Bloco b:MemoriaMerge.getListaDeBlocos()){
+			if(!b.isLivre()){
+				if(b.getProcesso().id == processo.id){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

@@ -19,8 +19,6 @@ import Escalonador.Processo;
 import FIFO.Fila;
 
 public class InterfaceMF extends JFrame {
-//	private int nProcessos = 4;
-//	private JPanel contentPane;
 	JFrame frame;
 	public static JPanel panelProcessos = new JPanel();
 
@@ -67,7 +65,7 @@ public class InterfaceMF extends JFrame {
 		
 		
 		
-		/*		 Mﾃ欝ODO DE MOSTRAR AS LISTAS		*/
+		/*		 MﾉTODO DE MOSTRAR AS LISTAS		*/
 		// ------------------------------------- CRIANDO O PANEL E SCROLL DA LISTA DE LISTAS ---------------------------
 		 
 		panel.add(scrollListaBlocos); // ADICIONA O SCROLL NO PANEL PRINCIPAL
@@ -83,19 +81,6 @@ public class InterfaceMF extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MergeFit.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
 				MergeFit.attFilas();
-//				
-//				
-//				
-//				System.out.println("tamanho da lista de processos terminados = " + terminados.size());
-//				JTextArea textAreaProcessos = new JTextArea(6, 16);
-//				textAreaProcessos.setBackground(new Color(102, 204, 102));
-//				textAreaProcessos.setEditable(false);
-//				Processo teste = new Processo();
-//				Core c = new Core();
-//				c.setProcessoEmAndamento(teste);
-//				textAreaProcessos.setText(c.toString());
-//
-//				panelProcessos.add(textAreaProcessos);
 				revalidate();
 			}
 		});
@@ -154,13 +139,7 @@ public class InterfaceMF extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				MergeFit.terminar();
-//				JTextArea txtAreaBlocos = new JTextArea(4,16);
-//				txtAreaBlocos.setText("Bytes = "+MemoriaMerge.MEMORIA_TOTAL+"\nProcesso = Sem processo\nEstado = Livre");
-//				txtAreaBlocos.setBackground(new Color(102, 204, 102)); /// ADICIONA UMA COR AO TXTAREA DO BLOCO
-//				txtAreaBlocos.setEditable(false); // TIRA O EDITABLE PARA Nﾃグ PODER EDITAR QUANDO ESTIVER EXECUTANDO
-//				panelListadeBlocos = new JPanel();
-//				panelListadeBlocos.add(txtAreaBlocos);
-//				repaint();
+				mostrarUltimoBloco(); // CHAMA O ULTIMO BLOCO
 			}
 		});
 		btnTerminar.setBounds(727, 504, 89, 23);
@@ -249,19 +228,27 @@ public class InterfaceMF extends JFrame {
 		lblListasTop.setBounds(28, 572, 157, 14); // CONFIGURAﾃ�ﾃグ DE POSIﾃ�ﾃグ
 		panel.add(lblListasTop); // ADICIONANDO NO PANEL PRINCIPAL O LABEL
 
-		// JFrame frame = new JFrame("Round Robin");
-		// frame.setVisible(true);
-		// frame.
 	}
-//	public static void reiniciarScrollTopLista(){ // MERODO PARA REINICIAR O PANEL DO SCROLL DE LSITA TOP ( REFATORA AS LISTAS)
-//		int ncomp = panelListadeBlocos.getComponentCount(); // PEGA O NUMERO DE COMPONENTES (LISTAS)
-//		for (int i = 0; i < ncomp; i++ ){ // PERCORRE UM FOR NCOMP VEZES
-//			panelListadeBlocos.remove(panelListadeBlocos.getComponent(0)); // REMOVE TODOS OS COMPONENTES DO PANEL DO SCROLL
-//		}
-//	}
 	
 	public static void repaintPanelTopLista(){ // REPINTA O PANEL DO SCROLL DAS LISTAS
 		panelListadeBlocos.repaint();
+	}
+	
+	public void mostrarUltimoBloco(){ //APARECER O ULTIMO BLOCO
+		JScrollPane novo = new JScrollPane(); // CRIA UM NOVO SCROLL PRA MOSTRAR O UTLIMO BLOCO
+		JPanel novo2 = new JPanel(); // CRIA UM NOVO PANEL PRA MOSTRAR O ULTIMO BLOCO
+		panel.remove(scrollListaBlocos); // REMOVE O SCROLL ANTIGO Q NA HORA Q CHAMAR O METODO VAI TA BUGADO
+		panel.add(novo); // ADICIONA O NOVO SCROLL NO PANEL PRINCIPAL
+		novo.setBounds(28, 586, 788, 120); // POE O TAMANHO DO SCROLL
+		novo2.setBounds(0, 0, 10, 10); // POE O TAMANHO DO PANEL
+		novo.setViewportView(panelListadeBlocos); // ADICIONA O NOVO PANEL COMO VIEWPORT DO NOVO SCROLL
+		novo2.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5)); // ADICIONA O LAYOUT HORIZONTAL AO PANEL (PARA EXIBIR AS LISTAS UMA DO LADO DA OUTRA)
+		JTextArea txtAreaBlocos = new JTextArea(4,16); //CRIA UM TXTAREA Q REPRESENTA O ULTIMO BLOCO
+		txtAreaBlocos.setText("Bytes = "+MemoriaMerge.MEMORIA_TOTAL+"\nProcesso = Sem processo\nEstado = Livre"); // POE AS INFORMAﾇﾕES DO ULTIMO BLOCO
+		txtAreaBlocos.setBackground(new Color(102, 204, 102)); /// ADICIONA UMA COR AO TXTAREA DO BLOCO
+		txtAreaBlocos.setEditable(false); // TIRA O EDITABLE PARA Nﾃグ PODER EDITAR QUANDO ESTIVER EXECUTANDO
+		novo.add(txtAreaBlocos); // ADICIONA O TXTAREA NO PANEL
+		novo.repaint(); // REPINTA O PANEL
 	}
 	
 }

@@ -39,7 +39,7 @@ public class MemoriaMerge extends Memoria{
 			MemoriaMerge.listaDeBlocos.add(superBloco); // ADICIONA O SUPERBLOCONOVO
 			InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O SUPERBLOCO NOVO
 			InterfaceMF.repaintPanelTopLista(); // REPINTA A JANELA DE BLOCOS
-//			System.out.println("COMPONENTES = "+InterfaceRR.panelListadeBlocos.getComponentCount());
+			System.out.println("QTD COMPONENTES NO PANEL = "+InterfaceMF.panelListadeBlocos.getComponentCount()); // PARTE DO DEBUG
 			return true; // RETORNA VERDADEIRO PQ FEZ O MERGE COM SUCESSO
 		}
 		return false; // RETORNA FALSE SE O BLOCO JA ESTA COM MEMORIA TOTAL
@@ -57,7 +57,6 @@ public class MemoriaMerge extends Memoria{
 
 	public static void start() { // STARTA A MEMORIA
 		listaDeBlocos.add(superBloco); // ADICIONA O SUPERBLOCO NA LISTA
-//		new seila().start();
 		InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // ADICIONA NA INTERFACE O SUPERBLOCO INICIAL
 	}
 

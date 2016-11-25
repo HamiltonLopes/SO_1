@@ -83,7 +83,7 @@ public class InterfaceInicialMF extends JFrame {
 		lblCores.setBounds(476, 166, 63, 20);
 		panelRR.add(lblCores);
 
-		JLabel lblRoundRobin = new JLabel("Merge Fit");
+		JLabel lblRoundRobin = new JLabel("Merge Fit"); // TITULO DO ALGORITMO
 		lblRoundRobin.setForeground(Color.WHITE);
 		lblRoundRobin.setHorizontalAlignment(JLabel.CENTER);
 		lblRoundRobin.setFont(new Font("Tahoma", Font.BOLD, 30));
