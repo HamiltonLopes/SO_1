@@ -5,9 +5,9 @@ import java.awt.Color;
 import javax.swing.JTextArea;
 
 public class Bloco { 
-	private int tamanho; // TAMANHO DO BLOCO EM BYTES
+	protected int tamanho; // TAMANHO DO BLOCO EM BYTES
 	private Processo processoDoBloco; // PROCESSO NO BLOCO ( SE TIVER )
-	private JTextArea txtAreaBlocos = new JTextArea(4,16); // CRIA UM TXTAREA PARA O BLOCO EM QUESTÃO
+	protected JTextArea txtAreaBlocos = new JTextArea(4,16); // CRIA UM TXTAREA PARA O BLOCO EM QUESTÃO
 	
 //	panelListaTop.add(txtAreaBlocos); // ADICIONA O TEXTAREA DO BLOCO NO PANEL DA LISTA 
 	

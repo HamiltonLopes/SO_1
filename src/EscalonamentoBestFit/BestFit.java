@@ -1,4 +1,4 @@
-package EscalonamentoMergeFit;
+package EscalonamentoBestFit;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -6,20 +6,19 @@ import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
-import Escalonador.Bloco;
 import Escalonador.Processo;
 import FIFO.Fila;
 
-public class MergeFit extends Thread {
+public class BestFit extends Thread {
 
 	static ArrayList<Processo> listaTerminados = new ArrayList<Processo>();
-	static ArrayList<CoreMerge> listaCores = new ArrayList<CoreMerge>();
+	static ArrayList<CoreBest> listaCores = new ArrayList<CoreBest>();
 
 	static Fila q4 = new Fila();
 	static Fila q3 = new Fila();
 	static Fila q2 = new Fila();
 	static Fila q = new Fila();
-	
+
 	private static int auxPosteriorDoUltimo = 0;
 	public static int cores = 0;
 	public static int processos = 0;
@@ -127,15 +126,15 @@ public class MergeFit extends Thread {
 		if (q != null) {
 			if (q.getQnt() > 0) {
 				if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceMF.textArea_1.setBackground(q.getHead().getProcesso().pronto);
+					InterfaceBF.textArea_1.setBackground(q.getHead().getProcesso().pronto);
 				} else {
-					InterfaceMF.textArea_1.setBackground(q.getHead().getProcesso().esperando);
+					InterfaceBF.textArea_1.setBackground(q.getHead().getProcesso().esperando);
 				}
-				InterfaceMF.textArea_1.setText(q.getHead().getProcesso().toString());
+				InterfaceBF.textArea_1.setText(q.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceMF.textArea_1.setText("\n    FILA\n    VAZIA");
-				InterfaceMF.textArea_1.setBackground(new Color(204, 255, 204));
+				InterfaceBF.textArea_1.setText("\n    FILA\n    VAZIA");
+				InterfaceBF.textArea_1.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -143,30 +142,30 @@ public class MergeFit extends Thread {
 		if (q2 != null) {
 			if (q2.getQnt() > 0) {
 				if (q2.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceMF.textArea_2.setBackground(q2.getHead().getProcesso().pronto);
+					InterfaceBF.textArea_2.setBackground(q2.getHead().getProcesso().pronto);
 				} else {
-					InterfaceMF.textArea_2.setBackground(q2.getHead().getProcesso().esperando);
+					InterfaceBF.textArea_2.setBackground(q2.getHead().getProcesso().esperando);
 				}
-				InterfaceMF.textArea_2.setText(q2.getHead().getProcesso().toString());
+				InterfaceBF.textArea_2.setText(q2.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceMF.textArea_2.setText("\n    FILA\n    VAZIA");
-				InterfaceMF.textArea_2.setBackground(new Color(204, 255, 204));
+				InterfaceBF.textArea_2.setText("\n    FILA\n    VAZIA");
+				InterfaceBF.textArea_2.setBackground(new Color(204, 255, 204));
 			}
 		}
 
 		if (q3 != null) {
 			if (q3.getQnt() > 0) {
 				if (q3.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceMF.textArea_3.setBackground(q3.getHead().getProcesso().pronto);
+					InterfaceBF.textArea_3.setBackground(q3.getHead().getProcesso().pronto);
 				} else {
-					InterfaceMF.textArea_3.setBackground(q3.getHead().getProcesso().esperando);
+					InterfaceBF.textArea_3.setBackground(q3.getHead().getProcesso().esperando);
 				}
-				InterfaceMF.textArea_3.setText(q3.getHead().getProcesso().toString());
+				InterfaceBF.textArea_3.setText(q3.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceMF.textArea_3.setText("\n    FILA\n    VAZIA");
-				InterfaceMF.textArea_3.setBackground(new Color(204, 255, 204));
+				InterfaceBF.textArea_3.setText("\n    FILA\n    VAZIA");
+				InterfaceBF.textArea_3.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -174,15 +173,15 @@ public class MergeFit extends Thread {
 		if (q4 != null) {
 			if (q4.getQnt() > 0) {
 				if (q4.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-					InterfaceMF.textArea_4.setBackground(q4.getHead().getProcesso().pronto);
+					InterfaceBF.textArea_4.setBackground(q4.getHead().getProcesso().pronto);
 				} else {
-					InterfaceMF.textArea_4.setBackground(q4.getHead().getProcesso().esperando);
+					InterfaceBF.textArea_4.setBackground(q4.getHead().getProcesso().esperando);
 				}
-				InterfaceMF.textArea_4.setText(q4.getHead().getProcesso().toString());
+				InterfaceBF.textArea_4.setText(q4.getHead().getProcesso().toString());
 
 			} else {
-				InterfaceMF.textArea_4.setText("\n    FILA\n    VAZIA");
-				InterfaceMF.textArea_4.setBackground(new Color(204, 255, 204));
+				InterfaceBF.textArea_4.setText("\n    FILA\n    VAZIA");
+				InterfaceBF.textArea_4.setBackground(new Color(204, 255, 204));
 
 			}
 		}
@@ -191,7 +190,7 @@ public class MergeFit extends Thread {
 
 	////// E S C A L O N A M E N T O //////
 	public void run() {
-		MemoriaMerge.start(); // STARTA A MEMORIA
+
 		programaON = true;
 		adicionarProcessos(processos, new Color(153, 204, 204), new Color(255, 204, 102), new Color(255, 99, 71), new Color(153, 255, 102));
 
@@ -199,7 +198,7 @@ public class MergeFit extends Thread {
 		imprimirListas();
 
 		for (int i = 0; i < cores; i++) {
-			CoreMerge a = new CoreMerge();
+			CoreBest a = new CoreBest();
 			a.start();
 			listaCores.add(a);
 		}
@@ -207,7 +206,7 @@ public class MergeFit extends Thread {
 		EventQueue.invokeLater(new Runnable() { // CHAMA A TELA DO RR
 			public void run() {
 				try {
-					InterfaceMF frame = new InterfaceMF(q, q2, q3, q4, listaCores, listaTerminados);
+					InterfaceBF frame = new InterfaceBF(q, q2, q3, q4, listaCores, listaTerminados);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -231,11 +230,13 @@ public class MergeFit extends Thread {
 								JTextArea textAreaTerminados = new JTextArea(3, 16);
 								textAreaTerminados.setBackground(listaCores.get(i).getProcessoEmAndamento().terminado);
 								textAreaTerminados.setText(listaCores.get(i).getProcessoEmAndamento().toString());
-								InterfaceMF.panelTerminados.add(textAreaTerminados);
-								//DESALOCAR BLOCO DO PROCESSO
-								desalocarBlocoDoProcesso(listaCores.get(i).getProcessoEmAndamento());
+								InterfaceBF.panelTerminados.add(textAreaTerminados);
+								
+								//DESALOCA BLOCO DO PROCESSO
+								desalocarBloco(listaCores.get(i).getProcessoEmAndamento()); 
 							} else {
 								voltarParaFila(listaCores.get(i).getProcessoEmAndamento()); // SE.NAO, VOLTA.PRAS.FILAS
+								
 							}
 						}
 
@@ -245,30 +246,32 @@ public class MergeFit extends Thread {
 							boolean inseriCorretamente = false;
 							while (!inseriCorretamente) {
 								if (auxPosteriorDoUltimo == 0) {
-									if (q.getQnt() > 0) { 
-										Processo novoProcesso = q.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-										if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
-											listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+									if (q.getQnt() > 0) {
+
+										Processo novoProcesso = q.removerDaFila();// PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+										if(processoJaTemBloco(novoProcesso)){ // VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+											listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 											inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
-										}else{ // SE NAO TIVER BLOCO ENTRA,
-											if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-												listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
-												inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+										}else{// SE NAO TIVER BLOCO ENTRA,
+											if(alocarBloco(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+												listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+												inseriCorretamente = true;// ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
 											}
 										}
+										
 										if (q != null) {
 											if (q.getQnt() > 0) {
 												if (q.getHead().getProcesso().getEstado().equalsIgnoreCase("Pronto")) {
-													InterfaceMF.textArea_1
+													InterfaceBF.textArea_1
 													.setBackground(q.getHead().getProcesso().pronto);
 												} else {
-													InterfaceMF.textArea_1
+													InterfaceBF.textArea_1
 													.setBackground(q.getHead().getProcesso().esperando);
 												}
-												InterfaceMF.textArea_1.setText(q.getHead().getProcesso().toString());
+												InterfaceBF.textArea_1.setText(q.getHead().getProcesso().toString());
 											} else {
-												InterfaceMF.textArea_1.setText("\n    FILA\n    VAZIA");
-												InterfaceMF.textArea_1.setBackground(new Color(204, 255, 204));
+												InterfaceBF.textArea_1.setText("\n    FILA\n    VAZIA");
+												InterfaceBF.textArea_1.setBackground(new Color(204, 255, 204));
 
 											}
 										}
@@ -278,32 +281,34 @@ public class MergeFit extends Thread {
 								} else {
 									if (auxPosteriorDoUltimo == 1) {
 										if (q2.getQnt() > 0) {
-											Processo novoProcesso = q2.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-											if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
-												listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+											
+											Processo novoProcesso = q2.removerDaFila();// PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+											if(processoJaTemBloco(novoProcesso)){ // VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+												listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 												inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
-											}else{ // SE NAO TIVER BLOCO ENTRA,
-												if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-													listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
-													inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+											}else{// SE NAO TIVER BLOCO ENTRA,
+												if(alocarBloco(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+													listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+													inseriCorretamente = true;// ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
 												}
 											}
+
 											if (q2 != null) {
 												if (q2.getQnt() > 0) {
 													if (q2.getHead().getProcesso().getEstado()
 															.equalsIgnoreCase("Pronto")) {
-														InterfaceMF.textArea_2
+														InterfaceBF.textArea_2
 														.setBackground(q2.getHead().getProcesso().pronto);
 													} else {
-														InterfaceMF.textArea_2
+														InterfaceBF.textArea_2
 														.setBackground(q2.getHead().getProcesso().esperando);
 													}
-													InterfaceMF.textArea_2
+													InterfaceBF.textArea_2
 													.setText(q2.getHead().getProcesso().toString());
 
 												} else {
-													InterfaceMF.textArea_2.setText("\n    FILA\n    VAZIA");
-													InterfaceMF.textArea_2.setBackground(new Color(204, 255, 204));
+													InterfaceBF.textArea_2.setText("\n    FILA\n    VAZIA");
+													InterfaceBF.textArea_2.setBackground(new Color(204, 255, 204));
 
 												}
 											}
@@ -313,32 +318,32 @@ public class MergeFit extends Thread {
 									} else {
 										if (auxPosteriorDoUltimo == 2) {
 											if (q3.getQnt() > 0) {
-												Processo novoProcesso = q3.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-												if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
-													listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+												Processo novoProcesso = q3.removerDaFila();// PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+												if(processoJaTemBloco(novoProcesso)){ // VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+													listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 													inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
-												}else{ // SE NAO TIVER BLOCO ENTRA,
-													if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-														listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
-														inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+												}else{// SE NAO TIVER BLOCO ENTRA,
+													if(alocarBloco(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+														listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+														inseriCorretamente = true;// ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
 													}
 												}
 												if (q3 != null) {
 													if (q3.getQnt() > 0) {
 														if (q3.getHead().getProcesso().getEstado()
 																.equalsIgnoreCase("Pronto")) {
-															InterfaceMF.textArea_3
+															InterfaceBF.textArea_3
 															.setBackground(q3.getHead().getProcesso().pronto);
 														} else {
-															InterfaceMF.textArea_3.setBackground(
+															InterfaceBF.textArea_3.setBackground(
 																	q3.getHead().getProcesso().esperando);
 														}
-														InterfaceMF.textArea_3
+														InterfaceBF.textArea_3
 														.setText(q3.getHead().getProcesso().toString());
 
 													} else {
-														InterfaceMF.textArea_3.setText("\n    FILA\n    VAZIA");
-														InterfaceMF.textArea_3.setBackground(new Color(204, 255, 204));
+														InterfaceBF.textArea_3.setText("\n    FILA\n    VAZIA");
+														InterfaceBF.textArea_3.setBackground(new Color(204, 255, 204));
 
 													}
 												}
@@ -348,32 +353,33 @@ public class MergeFit extends Thread {
 										} else {
 											if (auxPosteriorDoUltimo == 3) {
 												if (q4.getQnt() > 0) {
-													Processo novoProcesso = q4.removerDaFila(); // PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
-													if(processoJaTemBloco(novoProcesso)){// VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
-														listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+													
+													Processo novoProcesso = q4.removerDaFila();// PEGA A REF DO PROX PROCESSO E INSERE NA VAR AUX NOVOPROCESSO
+													if(processoJaTemBloco(novoProcesso)){ // VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
+														listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE JA TEM BLOCO ENTAO ADICIONA O PROCESSO NO CORE
 														inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
-													}else{ // SE NAO TIVER BLOCO ENTRA,
-														if(alocarBlocoParaProcesso(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
-															listaCores.get(i).setProcessoEmAndamento(novoProcesso);  // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
-															inseriCorretamente = true; // ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
+													}else{// SE NAO TIVER BLOCO ENTRA,
+														if(alocarBloco(novoProcesso)){ //TENTA ALOCAR UM BLOCO PARA O NOVO PROCESSO, SE NAO ALOCAR DESCARTA
+															listaCores.get(i).setProcessoEmAndamento(novoProcesso); // SE ALOCOU O BLOCO ENTAO ADICIONA O PROCESSO NO CORE
+															inseriCorretamente = true;// ALIMENTA A VAR DE CONTROLE, AVISANDO QUE INSERIU
 														}
 													}
 													if (q4 != null) {
 														if (q4.getQnt() > 0) {
 															if (q4.getHead().getProcesso().getEstado()
 																	.equalsIgnoreCase("Pronto")) {
-																InterfaceMF.textArea_4.setBackground(
+																InterfaceBF.textArea_4.setBackground(
 																		q4.getHead().getProcesso().pronto);
 															} else {
-																InterfaceMF.textArea_4.setBackground(
+																InterfaceBF.textArea_4.setBackground(
 																		q4.getHead().getProcesso().esperando);
 															}
-															InterfaceMF.textArea_4
+															InterfaceBF.textArea_4
 															.setText(q4.getHead().getProcesso().toString());
 
 														} else {
-															InterfaceMF.textArea_4.setText("\n    FILA\n    VAZIA");
-															InterfaceMF.textArea_4
+															InterfaceBF.textArea_4.setText("\n    FILA\n    VAZIA");
+															InterfaceBF.textArea_4
 															.setBackground(new Color(204, 255, 204));
 
 														}
@@ -387,7 +393,7 @@ public class MergeFit extends Thread {
 								}
 							} // FIM WHILE DE INSERIR O PROXIMO DO ANTERIOR
 
-							// SE CHEGOU AQUI ï¿½ PQ TINHA PROCESSO
+							// SE CHEGOU AQUI � PQ TINHA PROCESSO
 							listaCores.get(i).setProntoParaReceberProcesso(false);
 						} else {
 							// NAO TEM MAIS PROCESSO
@@ -452,7 +458,7 @@ public class MergeFit extends Thread {
 		}
 	}
 
-	public static boolean aindaTemCore(ArrayList<CoreMerge> cores) {
+	public static boolean aindaTemCore(ArrayList<CoreBest> cores) {
 		for (int i = 0; i < cores.size(); i++) {
 			if (cores.get(i).getProcessoEmAndamento() != null) {
 				return true; // PQ ELE TA RODANDO
@@ -461,42 +467,58 @@ public class MergeFit extends Thread {
 		return false;
 	}
 	
-	public boolean alocarBlocoParaProcesso(Processo processo){ // ALOCA UM BLOCO PARA O PROCESSO
-		if(MemoriaMerge.getSuperBloco().getTamanho() >= processo.getRequisicao()){ // VERIFICA SE O SUPERBLOCO TEM ESPAÃ‡O PARA SER DIVIDIDO PARA ESTE PROCESSO
-			System.out.println("========================== DEBUG SPLIT ============================="); // DEBUG
-			Bloco novoBloco = MemoriaMerge.splitSuperBloco(processo.getRequisicao()); // SE SIM GERA O NOVO BLOCO E REALIZA O SPLIT
-			novoBloco.alocarProcesso(processo); // ALOCA O PROCESSO NO NOVO BLOCO CRIADO
-			for(Bloco b : MemoriaMerge.getListaDeBlocos()) System.out.println(b); // DEBUG
-			return true; // RETORNA VERDADEIRO PQ ALOCOU UM BLOCO COM SUCESSO
-		}	
-		return false; // RETORNA FALSE POIS A MEMORIA Ã‰ INSUFICIENTE
-	}
-	
-	public boolean desalocarBlocoDoProcesso(Processo processo){ // DESALOCA O PROCESSO DO BLOCO
-		if(MemoriaMerge.getSuperBloco().getTamanho() < MemoriaMerge.getMemoriaTotal()){ // VERIFICA SE O SUPERBLOCO JA ESTA NO TAMANHO MAXIMO (PREVENCAO DE ERROS)
-			for(Bloco bloco : MemoriaMerge.getListaDeBlocos()){ // PERCORRE OS BLOCOS DA LISTA DE BLOCOS
-				if(bloco.getTamanho() == processo.getRequisicao()){ // VERIFICA SE ELE TEM O TAMANHO DO PROCESSO
-					if(bloco.getProcesso().id == processo.id){ // VERIFICA SE O PROCESSO ALOCADO Ã‰ REALMENTE O PROCESSO QUE IRÃ� SER DESALOCADO
-						System.out.println("========================== DEBUG MERGE ============================="); // DEBUG
-						MemoriaMerge.mergeSuperBloco(bloco); // REALIZA O MERGE COM O SUPERBLOCO
-						for(Bloco b : MemoriaMerge.getListaDeBlocos()) System.out.println(b); // DEBUG
-						return true; // RETORNA VERDADEIRO PQ DEU CERTO
+	public boolean alocarBloco(Processo processo){ // TENTA ALOCAR UM BLOCO PARA O PROCESSO 
+		if(MemoriaBest.getMemoriaDisponivel() >= processo.getRequisicao()){ // VERIFICA SE TEM MEMORIA DISPONIVEL
+			if(MemoriaBest.temBloco()){ // VERIFICA SE JA TEM BLOCO CRIADOS, SE TIVER ENTRA
+				for(BlocoBest bloco:MemoriaBest.getListaDeBlocos()){ // PERCORRE OS BLOCOS
+					if(bloco.getTamanhoLivre() == processo.getRequisicao()){ // VERIFICA SE TEM UM BLOCO PERFEITO PRA ELE LIVRE
+						bloco.alocarProcesso(processo); // ALOCA O PROCESSO AO BLOCO
+						MemoriaBest.decrementarMemoria(processo.getRequisicao()); // DECREMENTA A MEMORIA
+						return true; // RETORNA TRUE PQ DEU TD CERTO
+					}
+				}
+				
+				for(BlocoBest bloco: MemoriaBest.getListaDeBlocos()){ // PERCORRE OS BLOCOS DNV SE NAO TIVER INSERIDO
+					if(bloco.getTamanhoLivre() > processo.getRequisicao()){  // VERIFICA SE TEM UM BLOCO Q DE CERTO NELE MESMO Q NAO SEJA O PERFEITO
+						bloco.alocarProcesso(processo); // ALOCA O PROCESSO NO BLOCO
+						MemoriaBest.decrementarMemoria(processo.getRequisicao());// DECREMENTA A MEMORIA
+						return true; // RETORNA TRUE PQ DEU CERTO
 					}
 				}
 			}
+			// ========== CHEGOU ATE AQUI PQ NAO ALOCOU AINDA ================
+			BlocoBest novo = MemoriaBest.criarBloco(processo.getRequisicao());  // TENTA CRIA UM NOVO BLOCO
+			if(!(novo == null)){ // SE CIROU O BLOCO, ENTRA
+				novo.alocarProcesso(processo); // ALOCA O PROCESSO
+				MemoriaBest.decrementarMemoria(processo.getRequisicao()); // DECREMENTA A MEMORIA
+				return true; // RETORNA TRUE PQ DEU CERTO
+			}
+			
+		} 
+		return false; // CHEGAR AQUI E PQ N TINHA MEMORIA DISPONIVEL OU TENHA POREM MAL DIVIDIDA ENTRE OS BLOCOS
+	}
+	
+	public boolean desalocarBloco(Processo processo){ // TENTA DESALOCAR O BLOCO DO PROCESSO
+		if(MemoriaBest.temBloco()){ // VERIFICA SE TEM BLOCOS CRIADOS NA MEMORIA
+			for(BlocoBest bloco: MemoriaBest.getListaDeBlocos()){ // PERCORRE OS BLOCOS
+				if(bloco.desalocarProcesso(processo)){ // TENTA DESALOCAR O PROCESSO
+					return true; // SE DESALOCAR SAI DO METODO E RETORNA TRUE;
+				}
+			}
 		}
-		return false; // RETORNA FALSO CASO JA ESTEJA NO TAMANHO MAXIMO, OU SEJA TEM ALGO ERRADOS
+		return false; // NAO TEM BLOCOS NA MEMORIA OU O PROCESSO NAO POSSUI BLOCO ALOCADO
 	}
 	
 	public boolean processoJaTemBloco(Processo processo){ // VERIFICA SE O PROCESSO JA TEM UM BLOCO ALOCADO
-		for(Bloco b:MemoriaMerge.getListaDeBlocos()){ // PERCORRE TODOS OS BLOCOS 
-			if(!b.isLivre()){ // VERIFICA SE O BLOCO ESTA LIVRE, SE NÃO ESTIVER ENTRA 
-				if(b.getProcesso().id == processo.id){ // VERIFICA SE O ID DO PROCESSO DENTRO DO BLOCO É O MESMO DO PROCESSO EM QUESTAO
-					return true; // RETORNA TRUE SE ACHOU UM BLOCO
+		for(BlocoBest b:MemoriaBest.getListaDeBlocos()){ // PERCORRE TODOS OS BLOCOS
+			for(Processo p : b.getProcessos()){ // PERCORRE TODOS OS PROCESSOS DO BLOCO
+				if(p.equals(processo)){ // VEIRIFICA SE O BLOCO TEM O PROCESSO EM QUESTAO
+					return true; // SE TIVER RETORNA TRUE
 				}
 			}
 		}
 		return false; // SE NAO TIVER UM BLOCO RETORNA FALSO
 	}
+	
 
 }

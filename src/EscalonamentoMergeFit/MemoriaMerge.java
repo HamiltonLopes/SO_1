@@ -8,7 +8,7 @@ import Escalonador.Memoria;
 
 
 public class MemoriaMerge extends Memoria{
-	private static ArrayList<Bloco> listaDeBlocos = new ArrayList<Bloco>(); // LISTA INICIAL DOS BLOCOS QUE VÃƒO SENDO CRIADOS ANTES DAS LISTAS TOP
+	private static ArrayList<Bloco> listaDeBlocos = new ArrayList<Bloco>(); // LISTA INICIAL DOS BLOCOS
 	private static Bloco superBloco = new Bloco(MEMORIA_TOTAL); // CRIA O SUPER BLOCO COM A MEMORIA TOTAL
 	
 	public static Bloco splitSuperBloco(int bytesNewBloco){ // REALIZA O SPLIT DO SUPERBLOCO PARA GERAR O NOVO BLOCO
@@ -38,18 +38,12 @@ public class MemoriaMerge extends Memoria{
 			InterfaceMF.panelListadeBlocos.remove(blocoExcluido.getJTextArea()); // TEORICAMENTE REMOVE DA INTERFACE O BLOCO EXCLUIDO
 			MemoriaMerge.listaDeBlocos.add(superBloco); // ADICIONA O SUPERBLOCONOVO
 			InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // TEORICAMENTE ADICIONA NA INTERFACE O SUPERBLOCO NOVO
-			InterfaceMF.repaintPanelTopLista(); // REPINTA A JANELA DE BLOCOS
+			InterfaceMF.repaintPanelListaBloco(); // REPINTA A JANELA DE BLOCOS
 			System.out.println("QTD COMPONENTES NO PANEL = "+InterfaceMF.panelListadeBlocos.getComponentCount()); // PARTE DO DEBUG
 			return true; // RETORNA VERDADEIRO PQ FEZ O MERGE COM SUCESSO
 		}
 		return false; // RETORNA FALSE SE O BLOCO JA ESTA COM MEMORIA TOTAL
 	}
-	
-//	public static void gambs(){ // CODIGO ALTAMENTE PODEROSO E TRABALHADO
-//		InterfaceMF.reiniciarScrollTopLista(); // REINICIA O PANEL DE BLOCOS 
-//		InterfaceMF.panelListadeBlocos.add(superBloco.getJTextArea()); // ADICIONA O SUPERBLOCO
-//		InterfaceMF.repaintPanelTopLista(); // REPINTA O PANEL
-//	}
 	
 	public static ArrayList<Bloco> getListaDeBlocos(){ // RETORNA A LISTA INICIAL DOS BLOCOS
 		return listaDeBlocos;

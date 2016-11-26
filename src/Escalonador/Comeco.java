@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import EscalonamentoBestFit.InterfaceInicialBF;
 import EscalonamentoMergeFit.InterfaceInicialMF;
 import EscalonamentoQuickFit.InterfaceInicialQF;
 
@@ -38,7 +39,7 @@ public class Comeco extends JFrame {
 		btnBestFit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-//				callQF();
+				callBF();
 			}
 		});
 		btnBestFit.setBounds(211, 138, 134, 23);
@@ -92,6 +93,12 @@ public class Comeco extends JFrame {
 	public void callMF(){
 		this.setVisible(false);
 		InterfaceInicialMF inter = new InterfaceInicialMF();
+		inter.setVisible(true);
+	}
+	
+	public void callBF(){
+		this.setVisible(false);
+		InterfaceInicialBF inter = new InterfaceInicialBF();
 		inter.setVisible(true);
 	}
 

@@ -1,4 +1,4 @@
-package EscalonamentoMergeFit;
+package EscalonamentoBestFit;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -18,7 +18,7 @@ import javax.swing.JTextPane;
 import Escalonador.Processo;
 import FIFO.Fila;
 
-public class InterfaceMF extends JFrame {
+public class InterfaceBF extends JFrame {
 	JFrame frame;
 	public static JPanel panelProcessos = new JPanel();
 
@@ -31,12 +31,12 @@ public class InterfaceMF extends JFrame {
 	static JPanel panelListadeBlocos = new JPanel(); // CRIA O PANEL
 	static JPanel panel = new JPanel();
 
-	public InterfaceMF(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<CoreMerge> cores, ArrayList<Processo> terminados) {
+	public InterfaceBF(Fila q, Fila q2, Fila q3, Fila q4, ArrayList<CoreBest> cores, ArrayList<Processo> terminados) {
 		setSize(889, 783);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		setTitle("Merge Fit");
+		setTitle("Best Fit");
 		getContentPane().setLayout(null);
 
 		panel.setForeground(new Color(153, 153, 204));
@@ -79,8 +79,8 @@ public class InterfaceMF extends JFrame {
 		btnAdicionarProcesso.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MergeFit.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
-				MergeFit.attFilas();
+				BestFit.adicionarProcessos(1, new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204), new Color(204, 204, 204));
+				BestFit.attFilas();
 				revalidate();
 			}
 		});
@@ -138,8 +138,7 @@ public class InterfaceMF extends JFrame {
 		btnTerminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MergeFit.terminar();
-				mostrarUltimoBloco(); // CHAMA O ULTIMO BLOCO
+				BestFit.terminar();
 			}
 		});
 		btnTerminar.setBounds(727, 504, 89, 23);
@@ -230,25 +229,8 @@ public class InterfaceMF extends JFrame {
 
 	}
 	
-	public static void repaintPanelListaBloco(){ // REPINTA O PANEL DO SCROLL DAS LISTAS
+	public static void repaintPanelTBloco(){ // REPINTA O PANEL DO SCROLL DOS BLOCOS
 		panelListadeBlocos.repaint();
-	}
-	
-	public void mostrarUltimoBloco(){ //APARECER O ULTIMO BLOCO
-		JScrollPane novo = new JScrollPane(); // CRIA UM NOVO SCROLL PRA MOSTRAR O UTLIMO BLOCO
-		JPanel novo2 = new JPanel(); // CRIA UM NOVO PANEL PRA MOSTRAR O ULTIMO BLOCO
-		panel.remove(scrollListaBlocos); // REMOVE O SCROLL ANTIGO Q NA HORA Q CHAMAR O METODO VAI TA BUGADO
-		panel.add(novo); // ADICIONA O NOVO SCROLL NO PANEL PRINCIPAL
-		novo.setBounds(28, 586, 788, 120); // POE O TAMANHO DO SCROLL
-		novo2.setBounds(0, 0, 10, 10); // POE O TAMANHO DO PANEL
-		novo.setViewportView(panelListadeBlocos); // ADICIONA O NOVO PANEL COMO VIEWPORT DO NOVO SCROLL
-		novo2.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5)); // ADICIONA O LAYOUT HORIZONTAL AO PANEL (PARA EXIBIR AS LISTAS UMA DO LADO DA OUTRA)
-		JTextArea txtAreaBlocos = new JTextArea(4,16); //CRIA UM TXTAREA Q REPRESENTA O ULTIMO BLOCO
-		txtAreaBlocos.setText("Bytes = "+MemoriaMerge.MEMORIA_TOTAL+"\nProcesso = Sem processo\nEstado = Livre"); // POE AS INFORMA��ES DO ULTIMO BLOCO
-		txtAreaBlocos.setBackground(new Color(102, 204, 102)); /// ADICIONA UMA COR AO TXTAREA DO BLOCO
-		txtAreaBlocos.setEditable(false); // TIRA O EDITABLE PARA NÃO PODER EDITAR QUANDO ESTIVER EXECUTANDO
-		novo.add(txtAreaBlocos); // ADICIONA O TXTAREA NO PANEL
-		novo.repaint(); // REPINTA O PANEL
 	}
 	
 }
